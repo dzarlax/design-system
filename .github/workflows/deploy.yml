@@ -1,0 +1,51 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build CSS bundle
+        run: sh build.sh
+
+      - name: Prepare Pages artifact
+        run: |
+          mkdir -p _site/dist _site/tokens _site/base _site/components _site/themes _site/brand/png _site/docs
+          cp dist/dzarlax.css _site/dist/
+          cp tokens/*.css _site/tokens/
+          cp base/*.css _site/base/
+          cp components/*.css _site/components/
+          cp themes/*.css _site/themes/
+          cp brand/*.svg brand/*.html _site/brand/
+          cp brand/png/* _site/brand/png/
+          cp docs/preview.html _site/docs/
+          cp docs/preview.html _site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

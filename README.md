@@ -4,8 +4,22 @@ Unified visual language for all personal projects. CSS-first, zero dependencies,
 
 ## Quick start
 
+Pinned version (recommended):
+
 ```html
-<link rel="stylesheet" href="dist/dzarlax.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dzarlax/design-system@v1.0.0/dist/dzarlax.css">
+```
+
+Latest from main:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dzarlax/design-system@main/dist/dzarlax.css">
+```
+
+GitHub Pages:
+
+```html
+<link rel="stylesheet" href="https://dzarlax.github.io/design-system/dist/dzarlax.css">
 ```
 
 ## Structure
@@ -61,13 +75,36 @@ Drop into any project:
 </a>
 ```
 
+## Build
+
+```bash
+./build.sh    # rebuilds dist/dzarlax.css from source files
+```
+
+On every push to `main`, GitHub Actions rebuilds the bundle and deploys to GitHub Pages.
+
+## Releases
+
+Automatic: every push to `main` that changes CSS/brand files creates a new patch release (v1.0.0 → v1.0.1 → v1.0.2...).
+
+To bump minor/major manually:
+
+```bash
+git tag v2.0.0
+git push origin v2.0.0
+```
+
+Auto-releases will continue from the new base (v2.0.1, v2.0.2...).
+
 ## Preview
 
-Open `docs/preview.html` in a browser to see all components.
+Live: [dzarlax.github.io/design-system](https://dzarlax.github.io/design-system/)
+
+Or open `docs/preview.html` locally.
 
 ## Used in
 
 - [Book](https://book.dzarlax.dev) — self-hosted Calendly
 - [Health Dashboard](https://health.dzarlax.dev) — health metrics
 - [Evening News](https://news.dzarlax.dev) — AI news aggregator
-- [Authentik](https://auth.dzarlax.dev) — SSO login
+- Authentik — SSO login
