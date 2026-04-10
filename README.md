@@ -4,22 +4,47 @@ Unified visual language for all personal projects. CSS-first, zero dependencies,
 
 ## Quick start
 
-Pinned version (recommended):
+### CDN (prototyping, dev)
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dzarlax/design-system@v1.0.0/dist/dzarlax.css">
 ```
 
-Latest from main:
+### Docker (production — works offline)
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dzarlax/design-system@main/dist/dzarlax.css">
+Add to your Dockerfile to bake CSS into the image at build time:
+
+```dockerfile
+ADD https://github.com/dzarlax/design-system/releases/download/v1.0.0/dzarlax.css /app/static/dzarlax.css
 ```
 
-GitHub Pages:
+Then in HTML:
 
 ```html
-<link rel="stylesheet" href="https://dzarlax.github.io/design-system/dist/dzarlax.css">
+<link rel="stylesheet" href="/static/dzarlax.css">
+```
+
+### Go (embed)
+
+```bash
+curl -fsSL https://github.com/dzarlax/design-system/releases/download/v1.0.0/dzarlax.css -o internal/ui/static/dzarlax.css
+```
+
+```go
+//go:embed static/dzarlax.css
+var designSystemCSS string
+```
+
+### Auto-update in CI
+
+Fetch the latest release during your project's build:
+
+```yaml
+- name: Download design system
+  run: |
+    LATEST=$(gh api repos/dzarlax/design-system/releases/latest --jq '.tag_name')
+    curl -fsSL "https://github.com/dzarlax/design-system/releases/download/${LATEST}/dzarlax.css" \
+      -o static/dzarlax.css
 ```
 
 ## Structure
