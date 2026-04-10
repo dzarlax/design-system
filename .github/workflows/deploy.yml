@@ -36,7 +36,7 @@ jobs:
           cp brand/*.svg brand/*.html _site/brand/
           cp brand/png/* _site/brand/png/
           cp docs/preview.html _site/docs/
-          cp docs/preview.html _site/index.html
+          sed 's|\.\./dist/|dist/|g; s|\.\./brand/|brand/|g' docs/preview.html > _site/index.html
 
       - uses: actions/upload-pages-artifact@v3
 
