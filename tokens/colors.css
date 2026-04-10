@@ -1,0 +1,40 @@
+/* dzarlax.dev Design System — Color Tokens */
+
+:root {
+    /* Brand core */
+    --brand-dark: #2B2B2B;
+    --brand-light: #F5F0E8;
+
+    /* Backgrounds */
+    --bg: #FCFAF7;
+    --surface: #FFFFFF;
+    --surface-2: #E8E6E3;
+
+    /* Text */
+    --text: #1A1A1E;
+    --text-secondary: rgba(26, 26, 30, 0.7);
+    --text-tertiary: rgba(26, 26, 30, 0.5);
+
+    /* Accent */
+    --accent: #18181B;
+    --accent-hover: #25282D;
+
+    /* Borders */
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(0, 0, 0, 0.12);
+    --border-light: rgba(26, 26, 30, 0.04);
+
+    /* Status */
+    --good: #16a34a;
+    --good-bg: #f0fdf4;
+    --warn: #d97706;
+    --warn-bg: #fffbeb;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+
+    /* Category (for dashboards) */
+    --heart: #e11d48;
+    --activity: #059669;
+    --sleep: #7c3aed;
+    --cardio: #0284c7;
+}

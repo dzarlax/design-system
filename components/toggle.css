@@ -1,0 +1,60 @@
+/* dzarlax.dev Design System — Toggle Switch */
+
+.toggle {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    outline: none;
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    height: 22px;
+    background: var(--surface-2);
+    border-radius: 11px;
+    position: relative;
+    cursor: pointer;
+    transition: background var(--transition);
+    flex-shrink: 0;
+}
+
+.toggle::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    top: 2px;
+    left: 2px;
+    transition: transform var(--transition);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggle:checked {
+    background: var(--good);
+}
+
+.toggle:checked::after {
+    transform: translateX(18px);
+}
+
+/* Theme toggle (circle button) */
+
+.theme-toggle {
+    background: var(--surface-2);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--text);
+    transition: background var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--border);
+}

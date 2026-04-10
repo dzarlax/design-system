@@ -1,0 +1,78 @@
+/* dzarlax.dev Design System — Navigation */
+
+/* Top navbar */
+
+.navbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    color: var(--text);
+}
+
+.navbar__brand img,
+.navbar__brand svg {
+    height: 28px;
+    width: auto;
+}
+
+.navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+/* Tab navigation (admin panels) */
+
+.tab-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+}
+
+.tab-nav a {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+    font-weight: 500;
+    transition: all var(--transition);
+}
+
+.tab-nav a:hover,
+.tab-nav a.active {
+    background: var(--surface-2);
+    color: var(--text);
+}
+
+@media (max-width: 768px) {
+    .tab-nav {
+        flex-wrap: wrap;
+    }
+
+    .tab-nav a {
+        font-size: var(--text-xs);
+        padding: 6px 10px;
+    }
+}

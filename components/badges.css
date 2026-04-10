@@ -1,0 +1,31 @@
+/* dzarlax.dev Design System — Badges */
+
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+}
+
+.badge--success {
+    background: rgba(22, 163, 74, 0.1);
+    color: var(--good);
+}
+
+.badge--warning {
+    background: rgba(217, 119, 6, 0.1);
+    color: var(--warn);
+}
+
+.badge--danger {
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--danger);
+}
+
+.badge--neutral {
+    background: var(--surface-2);
+    color: var(--text-secondary);
+}

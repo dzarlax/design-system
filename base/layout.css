@@ -1,0 +1,41 @@
+/* dzarlax.dev Design System — Layout */
+
+.container {
+    max-width: var(--container-sm);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.container--md {
+    max-width: var(--container-md);
+}
+
+.container--lg {
+    max-width: var(--container-lg);
+}
+
+.container--xl {
+    max-width: var(--container-xl);
+}
+
+/* Section spacing */
+
+.section {
+    padding: 32px 0;
+}
+
+.section + .section {
+    border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .container,
+    .container--md,
+    .container--lg,
+    .container--xl {
+        padding: 0 16px;
+        max-width: 100%;
+    }
+}

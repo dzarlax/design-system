@@ -1,0 +1,33 @@
+/* dzarlax.dev Design System — Dark Theme */
+
+[dark-mode] {
+    /* Backgrounds */
+    --bg: #1A1D21;
+    --surface: #22252A;
+    --surface-2: #2A2D32;
+
+    /* Text */
+    --text: #F5F5F5;
+    --text-secondary: rgba(245, 245, 245, 0.7);
+    --text-tertiary: rgba(245, 245, 245, 0.5);
+
+    /* Accent (inverted) */
+    --accent: #F5F5F5;
+    --accent-hover: #E0E0E0;
+
+    /* Borders */
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.12);
+    --border-light: rgba(255, 255, 255, 0.05);
+
+    /* Shadows (deeper for dark) */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+
+    /* Status backgrounds (muted for dark) */
+    --good-bg: rgba(22, 163, 74, 0.15);
+    --warn-bg: rgba(217, 119, 6, 0.15);
+    --danger-bg: rgba(220, 38, 38, 0.15);
+}

@@ -1,0 +1,38 @@
+<!-- dzarlax brand footer — drop into any project -->
+<style>
+  .dzarlax-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14px;
+    color: #2B2B2B;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .dzarlax-footer:hover { opacity: 1; }
+  .dzarlax-footer-icon {
+    width: 24px;
+    height: 24px;
+    background: #2B2B2B;
+    color: #F5F0E8;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: Georgia, serif;
+  }
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    .dzarlax-footer { color: #F5F0E8; }
+    .dzarlax-footer-icon { background: #F5F0E8; color: #2B2B2B; }
+  }
+</style>
+
+<a href="https://dzarlax.dev" class="dzarlax-footer" target="_blank" rel="noopener">
+  <span class="dzarlax-footer-icon">dz</span>
+  <span>built by dzarlax</span>
+</a>

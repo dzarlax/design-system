@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 200">
+  <!-- Full wordmark with .dev for light backgrounds -->
+  <!-- Icon -->
+  <rect x="10" y="10" width="180" height="180" rx="36" fill="#2B2B2B"/>
+  <text x="100" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="100" font-weight="bold" fill="#F5F0E8" text-anchor="middle">dz</text>
+  <!-- Wordmark -->
+  <text x="224" y="138" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="normal" fill="#2B2B2B" letter-spacing="-2">dzarlax<tspan opacity="0.4">.dev</tspan></text>
+</svg>

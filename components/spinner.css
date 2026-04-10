@@ -1,0 +1,35 @@
+/* dzarlax.dev Design System — Spinner / Loading */
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: dz-spin 0.6s linear infinite;
+}
+
+.spinner--large {
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
+}
+
+@keyframes dz-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* HTMX integration */
+
+.htmx-indicator {
+    display: none;
+}
+
+.htmx-request .htmx-indicator {
+    display: inline-block;
+}
+
+.htmx-request.htmx-indicator {
+    display: inline-block;
+}

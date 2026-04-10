@@ -1,0 +1,49 @@
+/* dzarlax.dev Design System — Footer */
+
+/* Page footer */
+
+.footer {
+    padding: 32px 0;
+    margin-top: 60px;
+    border-top: 1px solid var(--border);
+    color: var(--text-tertiary);
+    font-size: var(--text-xs);
+    text-align: center;
+}
+
+/* Brand footer link */
+
+.dzarlax-footer {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity var(--transition);
+}
+
+.dzarlax-footer:hover {
+    opacity: 1;
+}
+
+.dzarlax-footer-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--brand-dark);
+    color: var(--brand-light);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: var(--font-serif);
+}
+
+[dark-mode] .dzarlax-footer-icon {
+    background: var(--brand-light);
+    color: var(--brand-dark);
+}

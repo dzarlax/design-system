@@ -1,0 +1,104 @@
+/* dzarlax.dev Design System — Buttons */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    border: none;
+    font-family: var(--font);
+    font-size: var(--text-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: none;
+    line-height: 1;
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Variants */
+
+.btn--primary {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+.btn--primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn--secondary {
+    background: var(--surface-2);
+    color: var(--text);
+}
+
+.btn--secondary:hover {
+    background: var(--border);
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.btn--ghost:hover {
+    background: var(--surface-2);
+    color: var(--text);
+}
+
+.btn--danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn--danger:hover {
+    opacity: 0.9;
+}
+
+.btn--success {
+    background: var(--good);
+    color: #fff;
+}
+
+.btn--success:hover {
+    opacity: 0.9;
+}
+
+/* Sizes */
+
+.btn--small {
+    padding: 6px 12px;
+    font-size: var(--text-xs);
+}
+
+.btn--large {
+    padding: 14px 28px;
+    font-size: var(--text-lg);
+}
+
+.btn--block {
+    width: 100%;
+}
+
+/* Icon-only button */
+
+.btn--icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .btn--small {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}

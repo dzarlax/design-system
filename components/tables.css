@@ -1,0 +1,39 @@
+/* dzarlax.dev Design System — Tables */
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--text-tertiary);
+    border-bottom: 1px solid var(--border);
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-base);
+}
+
+tr:hover {
+    background: var(--surface-2);
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: var(--text-xs);
+    }
+
+    th, td {
+        padding: 8px 6px;
+    }
+}
