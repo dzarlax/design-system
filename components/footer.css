@@ -47,3 +47,10 @@
     background: var(--brand-light);
     color: var(--brand-dark);
 }
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .dzarlax-footer-icon {
+        background: var(--brand-light);
+        color: var(--brand-dark);
+    }
+}
