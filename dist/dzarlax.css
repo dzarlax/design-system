@@ -91,6 +91,7 @@
 }
 /* dzarlax.dev Design System — Dark Theme */
 
+/* Explicit dark mode (via HTML attribute) */
 [dark-mode] {
     /* Backgrounds */
     --bg: #1A1D21;
@@ -121,6 +122,35 @@
     --good-bg: rgba(22, 163, 74, 0.15);
     --warn-bg: rgba(217, 119, 6, 0.15);
     --danger-bg: rgba(220, 38, 38, 0.15);
+}
+
+/* System preference fallback (respects OS dark mode when no explicit choice) */
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) {
+        --bg: #1A1D21;
+        --surface: #22252A;
+        --surface-2: #2A2D32;
+
+        --text: #F5F5F5;
+        --text-secondary: rgba(245, 245, 245, 0.7);
+        --text-tertiary: rgba(245, 245, 245, 0.5);
+
+        --accent: #F5F5F5;
+        --accent-hover: #E0E0E0;
+
+        --border: rgba(255, 255, 255, 0.08);
+        --border-hover: rgba(255, 255, 255, 0.12);
+        --border-light: rgba(255, 255, 255, 0.05);
+
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+
+        --good-bg: rgba(22, 163, 74, 0.15);
+        --warn-bg: rgba(217, 119, 6, 0.15);
+        --danger-bg: rgba(220, 38, 38, 0.15);
+    }
 }
 /* dzarlax.dev Design System — Reset */
 
@@ -468,9 +498,9 @@ pre {
     transition: border-color var(--transition);
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
     outline: none;
     border-color: var(--accent);
 }
@@ -560,17 +590,17 @@ tr:hover {
 }
 
 .badge--success {
-    background: rgba(22, 163, 74, 0.1);
+    background: var(--good-bg);
     color: var(--good);
 }
 
 .badge--warning {
-    background: rgba(217, 119, 6, 0.1);
+    background: var(--warn-bg);
     color: var(--warn);
 }
 
 .badge--danger {
-    background: rgba(220, 38, 38, 0.1);
+    background: var(--danger-bg);
     color: var(--danger);
 }
 
@@ -764,6 +794,13 @@ tr:hover {
 [dark-mode] .dzarlax-footer-icon {
     background: var(--brand-light);
     color: var(--brand-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .dzarlax-footer-icon {
+        background: var(--brand-light);
+        color: var(--brand-dark);
+    }
 }
 /* dzarlax.dev Design System — Spinner / Loading */
 

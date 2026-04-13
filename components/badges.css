@@ -11,17 +11,17 @@
 }
 
 .badge--success {
-    background: rgba(22, 163, 74, 0.1);
+    background: var(--good-bg);
     color: var(--good);
 }
 
 .badge--warning {
-    background: rgba(217, 119, 6, 0.1);
+    background: var(--warn-bg);
     color: var(--warn);
 }
 
 .badge--danger {
-    background: rgba(220, 38, 38, 0.1);
+    background: var(--danger-bg);
     color: var(--danger);
 }
 

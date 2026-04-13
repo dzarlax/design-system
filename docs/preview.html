@@ -448,14 +448,37 @@ var designSystemCSS string</div>
     </div>
 
     <script>
-        // Persist dark mode preference
-        if (localStorage.getItem('dark-mode') === 'true') {
-            document.documentElement.setAttribute('dark-mode', '');
-        }
-        document.querySelector('.theme-toggle').addEventListener('click', () => {
-            document.documentElement.toggleAttribute('dark-mode');
-            localStorage.setItem('dark-mode', document.documentElement.hasAttribute('dark-mode'));
-        });
+        // Dark mode: explicit choice > system preference
+        // Supports [dark-mode], [light-mode], or auto (prefers-color-scheme via CSS)
+        (function() {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.documentElement.setAttribute('dark-mode', '');
+                document.documentElement.removeAttribute('light-mode');
+            } else if (saved === 'light') {
+                document.documentElement.setAttribute('light-mode', '');
+                document.documentElement.removeAttribute('dark-mode');
+            }
+            // If no saved preference, system preference is handled by CSS
+
+            function isDark() {
+                return document.documentElement.hasAttribute('dark-mode') ||
+                    (!document.documentElement.hasAttribute('light-mode') &&
+                     window.matchMedia('(prefers-color-scheme: dark)').matches);
+            }
+
+            document.querySelector('.theme-toggle').addEventListener('click', function() {
+                if (isDark()) {
+                    document.documentElement.removeAttribute('dark-mode');
+                    document.documentElement.setAttribute('light-mode', '');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('dark-mode', '');
+                    document.documentElement.removeAttribute('light-mode');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        })();
     </script>
 </body>
 </html>

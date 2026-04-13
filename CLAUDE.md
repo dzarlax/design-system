@@ -17,7 +17,7 @@ docs/            Preview page with all components
 ## Build
 
 ```bash
-./build.sh        # Rebuilds dist/dzarlax.css from source files
+./build.sh        # Rebuilds dist/dzarlax.css + dist/dzarlax.min.css
 ```
 
 Concatenation order matters: tokens → themes → base → components. Only change in `build.sh`.
@@ -120,11 +120,17 @@ Fetch the latest release during your project's build:
 
 ## Dark mode
 
-Via HTML attribute `[dark-mode]`, NOT `prefers-color-scheme`:
+Primary: HTML attribute `[dark-mode]`. Fallback: `prefers-color-scheme: dark` (auto-applies when no explicit choice).
 
 ```js
+// Toggle dark mode explicitly
 document.documentElement.toggleAttribute('dark-mode');
+
+// Force light mode (overrides system preference)
+document.documentElement.setAttribute('light-mode', '');
 ```
+
+Priority: `[dark-mode]` or `[light-mode]` attribute > system `prefers-color-scheme` > light default.
 
 ## Projects using this system
 
