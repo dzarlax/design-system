@@ -7,7 +7,7 @@
 }
 
 html {
-    font-size: 15px;
+    font-size: 16px;
     line-height: var(--leading-relaxed);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

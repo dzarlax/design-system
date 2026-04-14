@@ -282,6 +282,14 @@
                 <a href="#toggles">Toggles</a>
                 <a href="#spinner">Spinner</a>
                 <a href="#footer-section">Footer</a>
+                <a href="#hero">Hero</a>
+                <a href="#timeline">Timeline</a>
+
+                <div class="ds-toc__group">Utilities</div>
+                <a href="#utilities-scroll">Scroll</a>
+                <a href="#utilities-skeleton">Skeleton</a>
+                <a href="#utilities-animations">Animations</a>
+                <a href="#utilities-lang">Lang switcher</a>
 
                 <div class="ds-toc__group">Resources</div>
                 <a href="#brand">Brand</a>
@@ -1251,6 +1259,324 @@ document.documentElement.toggleAttribute('dark-mode');</div>
                 </div>
             </section>
 
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- HERO                                     -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="hero">
+                <h2 class="ds-section__title">Hero</h2>
+                <p class="ds-section__desc">Full-screen intro section with avatar, badge, title, subtitle and action buttons. Classes: <code>.hero</code>, <code>.hero__profile</code>, <code>.hero__avatar</code>, <code>.hero__badge</code>, <code>.hero__title</code>, <code>.hero__subtitle</code>, <code>.hero__description</code>, <code>.hero__actions</code>.</p>
+
+                <div style="border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;">
+                    <div class="hero" style="min-height: 420px; padding: 60px 24px;">
+                        <div class="hero__profile">
+                            <div style="width:120px;height:120px;border-radius:50%;background:var(--surface-2);border:4px solid var(--surface);box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;font-size:3rem;">🧑‍💻</div>
+                            <div class="hero__badge">💼</div>
+                        </div>
+                        <h1 class="hero__title">Alexey Panfilov</h1>
+                        <p class="hero__subtitle">Product Manager · AI Enthusiast</p>
+                        <p class="hero__description">Building AI-native products with 15 years of experience at Yandex, EdTech startups, and beyond.</p>
+                        <div class="hero__actions">
+                            <a href="#" class="btn btn--primary">Contact me</a>
+                            <a href="#" class="btn btn--secondary">Download CV</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- TIMELINE                                 -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="timeline">
+                <h2 class="ds-section__title">Timeline</h2>
+                <p class="ds-section__desc">Center-column timeline for experience and history. Alternates items left/right. Collapses to left-aligned list on mobile. Modifier <code>.timeline--list</code> for a simple vertical list variant.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Center timeline</h3>
+                    <ul class="timeline" style="margin-bottom:0">
+                        <li class="timeline__item">
+                            <span class="timeline__date">2022 – present</span>
+                            <h3 class="timeline__title">Head of Product</h3>
+                            <p class="timeline__company">Constructor.tech</p>
+                            <p class="timeline__description">Leading product development for e-commerce search and discovery platform.</p>
+                        </li>
+                        <li class="timeline__item">
+                            <span class="timeline__date">2020 – 2022</span>
+                            <h3 class="timeline__title">Senior Product Manager</h3>
+                            <p class="timeline__company">Yandex Cloud</p>
+                            <p class="timeline__description">Managed data warehouse and analytics products serving millions of users.</p>
+                        </li>
+                        <li class="timeline__item">
+                            <span class="timeline__date">2018 – 2020</span>
+                            <h3 class="timeline__title">Product Manager</h3>
+                            <p class="timeline__company">EdTech Startup</p>
+                            <p class="timeline__description">Built AI/ML platform for university education, improving learning outcomes.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">List variant (.timeline--list)</h3>
+                    <ul class="timeline timeline--list">
+                        <li class="timeline__item">
+                            <span class="timeline__date">2018</span>
+                            <h3 class="timeline__title">MSc Computer Science</h3>
+                            <p class="timeline__description">Moscow State University</p>
+                        </li>
+                        <li class="timeline__item">
+                            <span class="timeline__date">2014</span>
+                            <h3 class="timeline__title">BSc Applied Mathematics</h3>
+                            <p class="timeline__description">HSE University</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- EXTENDED CARDS                           -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="cards-extended">
+                <h2 class="ds-section__title">Cards — extended</h2>
+                <p class="ds-section__desc">New card variants: <code>.card--project</code> for project showcases (tags + link), <code>.card--icon</code> for education/achievement cards (icon + body).</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Project cards (.card.card--project)</h3>
+                    <div class="card-grid card-grid--3">
+                        <article class="card card--hover card--project">
+                            <h3 class="card__title">Health Dashboard</h3>
+                            <p class="card__description">Personal health metrics aggregator with Go backend, ClickHouse, and real-time charts.</p>
+                            <div class="card__tags">
+                                <span class="card__tag">Go</span>
+                                <span class="card__tag">ClickHouse</span>
+                                <span class="card__tag">Docker</span>
+                            </div>
+                            <a href="#" class="card__link">View project →</a>
+                        </article>
+                        <article class="card card--hover card--project">
+                            <h3 class="card__title">Design System</h3>
+                            <p class="card__description">CSS-first design system used across all dzarlax.dev projects. Zero dependencies.</p>
+                            <div class="card__tags">
+                                <span class="card__tag">CSS</span>
+                                <span class="card__tag">GitHub Pages</span>
+                            </div>
+                            <a href="#" class="card__link">View project →</a>
+                        </article>
+                        <article class="card card--hover card--project">
+                            <h3 class="card__title">Evening News</h3>
+                            <p class="card__description">RSS aggregator with AI summaries, delivered as a personal daily digest.</p>
+                            <div class="card__tags">
+                                <span class="card__tag">Python</span>
+                                <span class="card__tag">LLM</span>
+                                <span class="card__tag">FastAPI</span>
+                            </div>
+                            <a href="#" class="card__link">View project →</a>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Icon cards (.card.card--icon)</h3>
+                    <div class="card-grid card-grid--2">
+                        <div class="card card--hover card--icon">
+                            <div class="card__icon">🎓</div>
+                            <div class="card__body">
+                                <h3 class="card__title">MSc Computer Science</h3>
+                                <p class="card__description">Moscow State University, 2018</p>
+                            </div>
+                        </div>
+                        <div class="card card--hover card--icon">
+                            <div class="card__icon">🏢</div>
+                            <div class="card__body">
+                                <h3 class="card__title">Yandex Alumni</h3>
+                                <p class="card__description">Data Infrastructure &amp; Cloud Products</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Icon card with soft icon (.card__icon--soft)</h3>
+                    <div class="card-grid card-grid--2">
+                        <div class="card card--hover card--icon">
+                            <div class="card__icon card__icon--soft">🚀</div>
+                            <div class="card__body">
+                                <h3 class="card__title">15+ Years Experience</h3>
+                                <p class="card__description">Across product management, engineering, and AI product development.</p>
+                            </div>
+                        </div>
+                        <div class="card card--hover card--icon">
+                            <div class="card__icon card__icon--soft">🌍</div>
+                            <div class="card__body">
+                                <h3 class="card__title">Global Reach</h3>
+                                <p class="card__description">Products used by millions of users in 30+ countries.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- MOBILE NAV                               -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="nav-mobile">
+                <h2 class="ds-section__title">Navigation — Mobile</h2>
+                <p class="ds-section__desc">Hamburger button, drawer, and backdrop overlay for mobile navigation. Classes: <code>.hamburger</code> / <code>.hamburger.active</code>, <code>.nav-drawer</code> / <code>.nav-drawer.active</code>, <code>.menu-overlay</code> / <code>.menu-overlay.active</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Hamburger states</h3>
+                    <div class="ds-row">
+                        <div class="ds-state">
+                            <button class="hamburger">
+                                <span class="hamburger__line"></span>
+                                <span class="hamburger__line"></span>
+                                <span class="hamburger__line"></span>
+                            </button>
+                            <span class="ds-state__label">closed</span>
+                        </div>
+                        <div class="ds-state">
+                            <button class="hamburger active">
+                                <span class="hamburger__line"></span>
+                                <span class="hamburger__line"></span>
+                                <span class="hamburger__line"></span>
+                            </button>
+                            <span class="ds-state__label">open</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Code</h3>
+                    <div class="ds-code">&lt;button class="hamburger" onclick="this.classList.toggle('active')"&gt;
+  &lt;span class="hamburger__line"&gt;&lt;/span&gt;
+  &lt;span class="hamburger__line"&gt;&lt;/span&gt;
+  &lt;span class="hamburger__line"&gt;&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;div class="menu-overlay"&gt;&lt;/div&gt;
+&lt;nav class="nav-drawer"&gt;
+  &lt;ul class="nav-drawer__list"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- UTILITIES                                -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="utilities-scroll">
+                <h2 class="ds-section__title">Utilities — Scroll</h2>
+                <p class="ds-section__desc">Scroll progress bar and scroll-to-top button. JS sets <code>style.width</code> on <code>.scroll-progress</code> and toggles <code>.visible</code> on <code>.scroll-top</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Scroll progress bar</h3>
+                    <div style="position:relative;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;">
+                        <div class="scroll-progress" style="position:absolute;inset:0;width:60%;height:100%;"></div>
+                    </div>
+                    <p style="font-size:var(--text-xs);color:var(--text-tertiary);margin-top:8px;">In production: <code>position:fixed; top:0; left:0; z-index:9999</code></p>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Scroll-to-top button</h3>
+                    <div class="ds-row">
+                        <div class="ds-state">
+                            <button class="scroll-top visible" style="position:relative;inset:auto;transform:none;">↑</button>
+                            <span class="ds-state__label">visible</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="ds-section" id="utilities-skeleton">
+                <h2 class="ds-section__title">Utilities — Skeleton loader</h2>
+                <p class="ds-section__desc">Shimmer placeholder for async content. Add <code>.skeleton</code> + a size modifier. Respects <code>prefers-reduced-motion</code>.</p>
+
+                <div style="max-width:360px;display:flex;flex-direction:column;gap:4px;">
+                    <div class="skeleton skeleton--title"></div>
+                    <div class="skeleton skeleton--text"></div>
+                    <div class="skeleton skeleton--text"></div>
+                    <div class="skeleton skeleton--text" style="width:75%"></div>
+                    <div style="height:8px"></div>
+                    <div class="skeleton skeleton--button"></div>
+                </div>
+
+                <div class="ds-sub" style="margin-top:24px;">
+                    <h3 class="ds-sub__title">In a card</h3>
+                    <div class="card" style="max-width:320px;">
+                        <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
+                            <div class="skeleton skeleton--avatar"></div>
+                            <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+                                <div class="skeleton skeleton--title" style="margin-bottom:0"></div>
+                                <div class="skeleton skeleton--text" style="width:60%"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton skeleton--text"></div>
+                        <div class="skeleton skeleton--text"></div>
+                        <div class="skeleton skeleton--text" style="width:75%"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="ds-section" id="utilities-animations">
+                <h2 class="ds-section__title">Utilities — Animations</h2>
+                <p class="ds-section__desc"><code>.reveal</code> — fade in on scroll (JS adds <code>.visible</code>). <code>.stagger</code> on container — staggers children with <code>--i</code> CSS variable delay. Both respect <code>prefers-reduced-motion</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Reveal</h3>
+                    <div class="ds-code">&lt;!-- HTML --&gt;
+&lt;section class="reveal"&gt;...&lt;/section&gt;
+
+&lt;!-- JS (Intersection Observer) --&gt;
+const observer = new IntersectionObserver(entries =&gt; {
+  entries.forEach(e =&gt; e.target.classList.toggle('visible', e.isIntersecting));
+});
+document.querySelectorAll('.reveal').forEach(el =&gt; observer.observe(el));</div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Stagger children</h3>
+                    <div class="ds-code">&lt;!-- CSS var --i sets per-child delay --&gt;
+&lt;ul class="stagger"&gt;
+  &lt;li style="--i:0"&gt;Item 1&lt;/li&gt;
+  &lt;li style="--i:1"&gt;Item 2&lt;/li&gt;
+  &lt;li style="--i:2"&gt;Item 3&lt;/li&gt;
+&lt;/ul&gt;</div>
+                </div>
+            </section>
+
+            <section class="ds-section" id="utilities-lang">
+                <h2 class="ds-section__title">Utilities — Language switcher</h2>
+                <p class="ds-section__desc">Simple button group for internationalization. Classes: <code>.lang-switcher</code>, <code>.lang-btn</code>, <code>.lang-btn.active</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Flag buttons</h3>
+                    <div class="lang-switcher">
+                        <button class="lang-btn active">🇬🇧</button>
+                        <button class="lang-btn">🇷🇺</button>
+                        <button class="lang-btn">🇷🇸</button>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Text labels</h3>
+                    <div class="lang-switcher">
+                        <button class="lang-btn active">EN</button>
+                        <button class="lang-btn">RU</button>
+                        <button class="lang-btn">SR</button>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Popover</h3>
+                    <div style="position:relative;display:inline-block;">
+                        <button class="btn btn--secondary btn--small">More info</button>
+                        <div class="popover" style="position:relative;display:inline-block;margin-top:8px;">
+                            This is a popover. Use <code>position:absolute</code> and JS to position dynamically relative to the trigger element.
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Page footer -->
             <footer class="footer">

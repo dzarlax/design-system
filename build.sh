@@ -10,6 +10,7 @@ cat \
   base/reset.css \
   base/typography.css \
   base/layout.css \
+  base/utilities.css \
   components/buttons.css \
   components/cards.css \
   components/forms.css \
@@ -19,6 +20,8 @@ cat \
   components/toggle.css \
   components/footer.css \
   components/spinner.css \
+  components/hero.css \
+  components/timeline.css \
   > dist/dzarlax.css
 
 echo "Built dist/dzarlax.css ($(wc -l < dist/dzarlax.css) lines)"
