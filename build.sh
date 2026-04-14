@@ -22,6 +22,7 @@ cat \
   components/spinner.css \
   components/hero.css \
   components/timeline.css \
+  components/empty-state.css \
   > dist/dzarlax.css
 
 echo "Built dist/dzarlax.css ($(wc -l < dist/dzarlax.css) lines)"

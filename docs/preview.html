@@ -357,6 +357,7 @@
                 <a href="#footer-section">Footer</a>
                 <a href="#hero">Hero</a>
                 <a href="#timeline">Timeline</a>
+                <a href="#empty-state">Empty state</a>
 
                 <div class="ds-toc__group">Utilities</div>
                 <a href="#utilities-scroll">Scroll</a>
@@ -1483,6 +1484,63 @@ document.documentElement.toggleAttribute('dark-mode');</div>
                                 <h3 class="card__title">Global Reach</h3>
                                 <p class="card__description">Products used by millions of users in 30+ countries.</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- EMPTY STATE                              -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="empty-state">
+                <h2 class="ds-section__title">Empty State</h2>
+                <p class="ds-section__desc">Centered confirmation and empty-state layout. Classes: <code>.empty-state</code>, <code>.empty-state__icon</code> + modifiers <code>--success</code> <code>--error</code> <code>--warning</code> <code>--info</code>, <code>.empty-state__title</code>, <code>.empty-state__text</code>. Compact variant: <code>.empty-state--sm</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Icon variants</h3>
+                    <div class="ds-row" style="align-items:flex-start;gap:24px;flex-wrap:wrap;">
+                        <div class="ds-state">
+                            <div class="empty-state__icon empty-state__icon--success">✓</div>
+                            <span class="ds-state__label">success</span>
+                        </div>
+                        <div class="ds-state">
+                            <div class="empty-state__icon empty-state__icon--error">✕</div>
+                            <span class="ds-state__label">error</span>
+                        </div>
+                        <div class="ds-state">
+                            <div class="empty-state__icon empty-state__icon--warning">!</div>
+                            <span class="ds-state__label">warning</span>
+                        </div>
+                        <div class="ds-state">
+                            <div class="empty-state__icon empty-state__icon--info">i</div>
+                            <span class="ds-state__label">info</span>
+                        </div>
+                        <div class="ds-state">
+                            <div class="empty-state__icon">📭</div>
+                            <span class="ds-state__label">default</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Full confirmation</h3>
+                    <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+                        <div class="empty-state">
+                            <div class="empty-state__icon empty-state__icon--success">✓</div>
+                            <h2 class="empty-state__title">Booking confirmed!</h2>
+                            <p class="empty-state__text">You'll receive a calendar invite and reminder email shortly.</p>
+                            <a href="#" class="btn btn--primary">Back to home</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Empty list state (.empty-state--sm)</h3>
+                    <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+                        <div class="empty-state empty-state--sm">
+                            <div class="empty-state__icon">📭</div>
+                            <h3 class="empty-state__title">No bookings yet</h3>
+                            <p class="empty-state__text">When someone books a meeting it will appear here.</p>
                         </div>
                     </div>
                 </div>
