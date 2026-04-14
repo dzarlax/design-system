@@ -235,10 +235,75 @@
         [dark-mode] .theme-icon-light { display: none; }
         [dark-mode] .theme-icon-dark { display: inline; }
 
+        /* hidden on desktop — must come BEFORE the media query so it can be overridden */
+        .ds-toc-btn { display: none; }
+        .ds-toc-overlay { display: none; }
+
+        .ds-toc-btn {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: var(--radius-sm);
+        }
+        .ds-toc-btn span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: transform 0.22s ease, opacity 0.18s ease;
+            transform-origin: center;
+        }
+        .ds-toc-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .ds-toc-btn.active span:nth-child(2) { opacity: 0; }
+        .ds-toc-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
-            .ds-sidebar { display: none; }
             .ds-main { padding: 24px 16px; }
+
+            .ds-toc-btn { display: flex; }
+
+            /* sidebar becomes a fixed drawer on mobile */
+            .ds-sidebar {
+                position: fixed;
+                top: 0;
+                left: -260px;
+                bottom: 0;
+                width: 260px;
+                z-index: 200;
+                height: 100dvh;
+                background: var(--surface);
+                border-right: 1px solid var(--border);
+                box-shadow: var(--shadow-lg);
+                transition: left 0.28s ease;
+                padding-top: 56px;
+            }
+
+            .ds-sidebar.open { left: 0; }
+
+            .ds-toc-overlay {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.4);
+                z-index: 199;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s;
+            }
+
+            .ds-toc-overlay.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
         }
     </style>
 </head>
@@ -253,12 +318,20 @@
             Design System
         </a>
         <div class="navbar__actions">
+            <button class="ds-toc-btn" id="tocToggle" aria-label="Open navigation" onclick="toggleToc()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
                 <span class="theme-icon-light">&#9789;</span>
                 <span class="theme-icon-dark">&#9788;</span>
             </button>
         </div>
     </nav>
+
+    <!-- Mobile TOC overlay -->
+    <div class="ds-toc-overlay" id="tocOverlay" onclick="closeToc()"></div>
 
     <div class="ds-layout">
 
@@ -1426,7 +1499,8 @@ document.documentElement.toggleAttribute('dark-mode');</div>
                     <h3 class="ds-sub__title">Hamburger states</h3>
                     <div class="ds-row">
                         <div class="ds-state">
-                            <button class="hamburger">
+                            <!-- display:flex overrides the media-query display:none so it's visible at all viewports in this demo -->
+                            <button class="hamburger" style="display:flex;">
                                 <span class="hamburger__line"></span>
                                 <span class="hamburger__line"></span>
                                 <span class="hamburger__line"></span>
@@ -1434,14 +1508,57 @@ document.documentElement.toggleAttribute('dark-mode');</div>
                             <span class="ds-state__label">closed</span>
                         </div>
                         <div class="ds-state">
-                            <button class="hamburger active">
+                            <button class="hamburger active" style="display:flex;">
                                 <span class="hamburger__line"></span>
                                 <span class="hamburger__line"></span>
                                 <span class="hamburger__line"></span>
                             </button>
-                            <span class="ds-state__label">open</span>
+                            <span class="ds-state__label">open (× state)</span>
                         </div>
                     </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Interactive drawer demo</h3>
+                    <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:12px;">The drawer is fixed-position in production. Here it's contained inside the demo box.</p>
+                    <!-- Contained demo: drawer is positioned inside this relative box, not the full viewport -->
+                    <div id="mobile-nav-demo" style="position:relative;height:320px;background:var(--surface-2);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);">
+                        <!-- Mock page content -->
+                        <div style="padding:16px;display:flex;align-items:center;justify-content:space-between;background:var(--surface);border-bottom:1px solid var(--border);">
+                            <span style="font-weight:600;font-family:var(--font-serif);">dzarlax.dev</span>
+                            <button class="hamburger" id="demo-hamburger" style="display:flex;" onclick="toggleDemoDrawer()">
+                                <span class="hamburger__line"></span>
+                                <span class="hamburger__line"></span>
+                                <span class="hamburger__line"></span>
+                            </button>
+                        </div>
+                        <div style="padding:24px;color:var(--text-secondary);font-size:var(--text-sm);">← tap the hamburger to open/close the drawer</div>
+
+                        <!-- Overlay (inside demo box) -->
+                        <div id="demo-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.4);opacity:0;transition:opacity 0.25s;pointer-events:none;z-index:10;" onclick="toggleDemoDrawer()"></div>
+
+                        <!-- Drawer (inside demo box) -->
+                        <nav id="demo-drawer" style="position:absolute;top:0;left:-240px;bottom:0;width:240px;background:var(--surface);border-right:1px solid var(--border);transition:left 0.28s ease;z-index:20;padding:16px 0;">
+                            <ul class="nav-drawer__list" style="list-style:none;padding:0;margin:0;">
+                                <li><a href="#" onclick="return false;" style="display:block;padding:12px 20px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);">Home</a></li>
+                                <li><a href="#" onclick="return false;" style="display:block;padding:12px 20px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);">About</a></li>
+                                <li><a href="#" onclick="return false;" style="display:block;padding:12px 20px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);">Projects</a></li>
+                                <li><a href="#" onclick="return false;" style="display:block;padding:12px 20px;color:var(--text);text-decoration:none;">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <script>
+                    function toggleDemoDrawer() {
+                        var hamburger = document.getElementById('demo-hamburger');
+                        var drawer = document.getElementById('demo-drawer');
+                        var overlay = document.getElementById('demo-overlay');
+                        var open = drawer.style.left === '0px';
+                        drawer.style.left = open ? '-240px' : '0px';
+                        overlay.style.opacity = open ? '0' : '1';
+                        overlay.style.pointerEvents = open ? 'none' : 'auto';
+                        hamburger.classList.toggle('active', !open);
+                    }
+                    </script>
                 </div>
 
                 <div class="ds-sub">
@@ -1458,7 +1575,10 @@ document.documentElement.toggleAttribute('dark-mode');</div>
     &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
-&lt;/nav&gt;</div>
+&lt;/nav&gt;
+
+&lt;!-- Note: .hamburger has display:none by default.
+     It becomes display:flex at max-width:768px (mobile). --&gt;</div>
                 </div>
             </section>
 
@@ -1656,6 +1776,33 @@ document.querySelectorAll('.reveal').forEach(el =&gt; observer.observe(el));</di
             window.addEventListener('scroll', onScroll, { passive: true });
             onScroll();
         })();
+
+        // ── Mobile TOC drawer ──
+        function toggleToc() {
+            var sidebar = document.querySelector('.ds-sidebar');
+            var overlay = document.getElementById('tocOverlay');
+            var btn = document.getElementById('tocToggle');
+            var isOpen = sidebar.classList.contains('open');
+            sidebar.classList.toggle('open', !isOpen);
+            overlay.classList.toggle('active', !isOpen);
+            btn.classList.toggle('active', !isOpen);
+        }
+
+        function closeToc() {
+            var sidebar = document.querySelector('.ds-sidebar');
+            var overlay = document.getElementById('tocOverlay');
+            var btn = document.getElementById('tocToggle');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            btn.classList.remove('active');
+        }
+
+        // close TOC when a link is tapped on mobile
+        document.querySelectorAll('.ds-toc a').forEach(function (a) {
+            a.addEventListener('click', function () {
+                if (window.innerWidth <= 768) closeToc();
+            });
+        });
     </script>
 </body>
 </html>
