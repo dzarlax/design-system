@@ -1,5 +1,5 @@
 /* dzarlax.dev Design System — Combobox
- * Searchable select with keyboard navigation.
+ * Searchable select with keyboard navigation and clear button.
  *
  * Usage:
  *   <div data-ds-combobox>
@@ -15,8 +15,10 @@
  *   el.addEventListener('ds:change', e => console.log(e.detail.value, e.detail.label))
  *
  * JS API:
- *   DS.Combobox(el)  — init a single element
- *   DS.init()        — re-init all [data-ds-combobox] on the page
+ *   DS.Combobox(el)          — init a single element
+ *   DS.init()                — re-init all [data-ds-combobox] on the page
+ *   DS.setValue(el, value)   — programmatically select an option by value
+ *   DS.clearValue(el)        — programmatically clear selection
  */
 (function () {
   'use strict';
@@ -25,8 +27,8 @@
     if (el._dsCombobox) return;
     el._dsCombobox = true;
 
-    var input = el.querySelector('input[type="text"], input:not([type="hidden"])');
-    var list  = el.querySelector('ul');
+    var input       = el.querySelector('input[type="text"], input:not([type="hidden"])');
+    var list        = el.querySelector('ul');
     var hiddenInput = el.querySelector('input[type="hidden"]');
     if (!input || !list) return;
 
@@ -38,6 +40,14 @@
     var items = Array.from(list.querySelectorAll('li'));
     items.forEach(function (item) { item.classList.add('ds-combobox__item'); });
 
+    // ── Clear button ──
+    var clearBtn = document.createElement('button');
+    clearBtn.type = 'button';
+    clearBtn.className = 'ds-combobox__clear';
+    clearBtn.setAttribute('aria-label', 'Clear');
+    clearBtn.textContent = '×';
+    el.appendChild(clearBtn);
+
     var selectedValue = el.dataset.value || '';
     var activeIndex   = -1;
 
@@ -47,6 +57,7 @@
       if (pre) {
         input.value = pre.textContent.trim();
         pre.classList.add('ds-combobox__item--selected');
+        el.classList.add('ds-combobox--has-value');
       }
     }
 
@@ -115,11 +126,33 @@
       items.forEach(function (i) { i.classList.remove('ds-combobox__item--selected'); });
       item.classList.add('ds-combobox__item--selected');
       el.classList.remove('ds-combobox--open');
+      el.classList.add('ds-combobox--has-value');
       activeIndex = -1;
       el.dispatchEvent(new CustomEvent('ds:change', {
         bubbles: true,
         detail: { value: selectedValue, label: input.value }
       }));
+    }
+
+    function clear() {
+      selectedValue = '';
+      input.value   = '';
+      if (hiddenInput) hiddenInput.value = '';
+      el.dataset.value = '';
+      items.forEach(function (i) { i.classList.remove('ds-combobox__item--selected'); });
+      el.classList.remove('ds-combobox--has-value');
+      el.classList.remove('ds-combobox--open');
+      activeIndex = -1;
+      el.dispatchEvent(new CustomEvent('ds:change', {
+        bubbles: true,
+        detail: { value: '', label: '' }
+      }));
+    }
+
+    function setValue(value) {
+      if (!value) { clear(); return; }
+      var item = items.find(function (i) { return i.dataset.value === value; });
+      if (item) select(item);
     }
 
     /* ── events ── */
@@ -154,9 +187,18 @@
       if (item) { e.preventDefault(); select(item); }
     });
 
+    clearBtn.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      clear();
+    });
+
     document.addEventListener('click', function (e) {
       if (!el.contains(e.target)) close();
     });
+
+    // Expose programmatic API on the element
+    el._dsComboboxAPI = { setValue: setValue, clear: clear };
   }
 
   function init() {
@@ -170,6 +212,8 @@
   }
 
   window.DS = window.DS || {};
-  window.DS.Combobox = initCombobox;
-  window.DS.init = function () { init(); };
+  window.DS.Combobox  = initCombobox;
+  window.DS.init      = function () { init(); };
+  window.DS.setValue  = function (el, value) { if (el && el._dsComboboxAPI) el._dsComboboxAPI.setValue(value); };
+  window.DS.clearValue = function (el) { if (el && el._dsComboboxAPI) el._dsComboboxAPI.clear(); };
 }());

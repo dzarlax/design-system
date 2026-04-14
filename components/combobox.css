@@ -8,7 +8,7 @@
 
 .ds-combobox__input {
     width: 100%;
-    padding: 10px 40px 10px 14px;
+    padding: 10px 56px 10px 14px; /* room for clear + caret */
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     background: var(--surface);
@@ -17,26 +17,6 @@
     font-size: var(--text-base);
     cursor: pointer;
     transition: border-color var(--transition), border-radius var(--transition);
-}
-
-/* Caret arrow via pseudo-element — reliable, animated, dark-mode friendly */
-.ds-combobox::after {
-    content: '';
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 5px solid var(--text-tertiary);
-    pointer-events: none;
-    transition: transform var(--transition);
-}
-
-.ds-combobox--open::after {
-    transform: translateY(-50%) rotate(180deg);
 }
 
 .ds-combobox__input::placeholder {
@@ -52,6 +32,53 @@
     border-color: var(--accent);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+/* ── Clear button ── */
+
+.ds-combobox__clear {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    font-size: 16px;
+    line-height: 1;
+    padding: 2px 4px;
+    display: none;
+    transition: color var(--transition);
+}
+
+.ds-combobox__clear:hover {
+    color: var(--text);
+}
+
+.ds-combobox--has-value .ds-combobox__clear {
+    display: block;
+}
+
+/* ── Caret arrow ── */
+
+.ds-combobox::after {
+    content: '';
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--text-tertiary);
+    pointer-events: none;
+    transition: transform var(--transition);
+}
+
+.ds-combobox--open::after {
+    transform: translateY(-50%) rotate(180deg);
 }
 
 /* ── Menu ── */
@@ -116,4 +143,3 @@
     cursor: default;
     font-style: italic;
 }
-
