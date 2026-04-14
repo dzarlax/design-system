@@ -9,6 +9,7 @@ on:
       - "components/**"
       - "themes/**"
       - "brand/**"
+      - "js/**"
       - "build.sh"
 
 permissions:
@@ -40,9 +41,10 @@ jobs:
           echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
           echo "Next version: $NEXT"
 
-      - name: Add version banner to CSS
+      - name: Add version banner to CSS and JS
         run: |
           sed -i "1i/* dzarlax.dev Design System ${{ steps.version.outputs.tag }} — https://github.com/dzarlax/design-system */" dist/dzarlax.css
+          sed -i "1i/* dzarlax.dev Design System ${{ steps.version.outputs.tag }} — https://github.com/dzarlax/design-system */" dist/dzarlax.js
 
       - name: Create tag
         run: |
@@ -56,4 +58,6 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.tag }}
           generate_release_notes: true
-          files: dist/dzarlax.css
+          files: |
+            dist/dzarlax.css
+            dist/dzarlax.js

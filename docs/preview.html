@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dzarlax.dev — Design System</title>
     <link rel="stylesheet" href="../dist/dzarlax.css">
+    <script src="../dist/dzarlax.js" defer></script>
     <style>
         /* ── Preview layout ── */
         .ds-layout { display: flex; min-height: calc(100vh - var(--navbar-height)); }
@@ -350,6 +351,7 @@
                 <a href="#cards">Cards</a>
                 <a href="#badges">Badges</a>
                 <a href="#forms">Forms</a>
+                <a href="#combobox">Combobox</a>
                 <a href="#tables">Tables</a>
                 <a href="#nav">Navigation</a>
                 <a href="#toggles">Toggles</a>
@@ -998,6 +1000,72 @@ console.log('Dark mode:', theme);</pre>
                             <input type="text" placeholder="sk-...">
                             <div class="form-hint">Find this in your account settings under Developer &rarr; API Keys.</div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="combobox" class="ds-section">
+                <h2 class="ds-section__title">Combobox</h2>
+                <p class="ds-section__desc">Searchable select with keyboard navigation. Requires <code>dzarlax.js</code>. Auto-initialized via <code>data-ds-combobox</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Basic</h3>
+                    <div class="ds-demo-form">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <div data-ds-combobox>
+                                <input type="text" placeholder="Search category...">
+                                <ul>
+                                    <li data-value="food">Food &amp; Groceries</li>
+                                    <li data-value="transport">Transport</li>
+                                    <li data-value="housing">Housing</li>
+                                    <li data-value="health">Health</li>
+                                    <li data-value="entertainment">Entertainment</li>
+                                    <li data-value="shopping">Shopping</li>
+                                    <li data-value="travel">Travel</li>
+                                    <li data-value="education">Education</li>
+                                    <li data-value="utilities">Utilities</li>
+                                    <li data-value="other">Other</li>
+                                </ul>
+                                <input type="hidden" name="category">
+                            </div>
+                            <div class="form-hint">Type to search · ↑↓ navigate · Enter select · Esc close</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Pre-selected value</h3>
+                    <div class="ds-demo-form">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div data-ds-combobox data-value="health">
+                                <input type="text">
+                                <ul>
+                                    <li data-value="food">Food &amp; Groceries</li>
+                                    <li data-value="transport">Transport</li>
+                                    <li data-value="housing">Housing</li>
+                                    <li data-value="health">Health</li>
+                                    <li data-value="entertainment">Entertainment</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">JS API</h3>
+                    <div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:20px;font-family:var(--font-mono);font-size:13px;line-height:1.8;color:var(--text);">
+                        <div><span style="color:var(--text-tertiary)">// Auto-init all [data-ds-combobox] on the page</span></div>
+                        <div>DS.init()</div>
+                        <br>
+                        <div><span style="color:var(--text-tertiary)">// Init a single element (e.g. dynamically added)</span></div>
+                        <div>DS.Combobox(document.querySelector('#my-select'))</div>
+                        <br>
+                        <div><span style="color:var(--text-tertiary)">// Listen to selection changes</span></div>
+                        <div>el.addEventListener(<span style="color:var(--good)">'ds:change'</span>, e =&gt; {</div>
+                        <div>&nbsp;&nbsp;console.log(e.detail.value, e.detail.label)</div>
+                        <div>})</div>
                     </div>
                 </div>
             </section>

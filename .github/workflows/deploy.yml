@@ -27,8 +27,10 @@ jobs:
 
       - name: Prepare Pages artifact
         run: |
-          mkdir -p _site/dist _site/tokens _site/base _site/components _site/themes _site/brand/png _site/docs
+          mkdir -p _site/dist _site/tokens _site/base _site/components _site/themes _site/brand/png _site/docs _site/js
           cp dist/dzarlax.css _site/dist/
+          cp dist/dzarlax.js _site/dist/
+          cp js/*.js _site/js/
           cp tokens/*.css _site/tokens/
           cp base/*.css _site/base/
           cp components/*.css _site/components/

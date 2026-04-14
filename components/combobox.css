@@ -1,0 +1,119 @@
+/* dzarlax.dev Design System — Combobox */
+
+.ds-combobox {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.ds-combobox__input {
+    width: 100%;
+    padding: 10px 40px 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: border-color var(--transition), border-radius var(--transition);
+}
+
+/* Caret arrow via pseudo-element — reliable, animated, dark-mode friendly */
+.ds-combobox::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--text-tertiary);
+    pointer-events: none;
+    transition: transform var(--transition);
+}
+
+.ds-combobox--open::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.ds-combobox__input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.ds-combobox__input:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.ds-combobox--open .ds-combobox__input {
+    border-color: var(--accent);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* ── Menu ── */
+
+.ds-combobox__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 500;
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-top: none;
+    border-bottom-left-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
+    max-height: 240px;
+    overflow-y: auto;
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+    box-shadow: var(--shadow);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.ds-combobox--open .ds-combobox__menu {
+    display: block;
+}
+
+/* ── Items ── */
+
+.ds-combobox__item {
+    padding: 9px 14px;
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: background var(--transition);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ds-combobox__item:hover,
+.ds-combobox__item--active {
+    background: var(--surface-2);
+}
+
+.ds-combobox__item--selected {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.ds-combobox__item--selected::after {
+    content: ' ✓';
+    font-size: 0.8em;
+}
+
+.ds-combobox__empty {
+    padding: 9px 14px;
+    color: var(--text-tertiary);
+    font-size: var(--text-sm);
+    cursor: default;
+    font-style: italic;
+}
+
