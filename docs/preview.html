@@ -755,19 +755,27 @@ console.log('Dark mode:', theme);</pre>
                     <h3 class="ds-sub__title">Icon buttons</h3>
                     <div class="ds-row">
                         <div class="ds-state">
-                            <button class="btn btn--icon btn--primary">+</button>
+                            <button class="btn btn--icon btn--primary" title="Add">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+                            </button>
                             <span class="ds-state__label">primary</span>
                         </div>
                         <div class="ds-state">
-                            <button class="btn btn--icon btn--secondary">&times;</button>
+                            <button class="btn btn--icon btn--secondary" title="Close">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+                            </button>
                             <span class="ds-state__label">secondary</span>
                         </div>
                         <div class="ds-state">
-                            <button class="btn btn--icon btn--ghost">?</button>
+                            <button class="btn btn--icon btn--ghost" title="Info">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="6"/><line x1="7" y1="6" x2="7" y2="10"/><circle cx="7" cy="4" r="0.5" fill="currentColor" stroke="none"/></svg>
+                            </button>
                             <span class="ds-state__label">ghost</span>
                         </div>
                         <div class="ds-state">
-                            <button class="btn btn--icon btn--danger">&times;</button>
+                            <button class="btn btn--icon btn--danger" title="Delete">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+                            </button>
                             <span class="ds-state__label">danger</span>
                         </div>
                     </div>
