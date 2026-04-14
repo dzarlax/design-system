@@ -358,6 +358,9 @@
                 <a href="#hero">Hero</a>
                 <a href="#timeline">Timeline</a>
                 <a href="#empty-state">Empty state</a>
+                <a href="#alerts">Alerts</a>
+                <a href="#stat-chip">Stat chip</a>
+                <a href="#kpi-bar">KPI bar</a>
 
                 <div class="ds-toc__group">Utilities</div>
                 <a href="#utilities-scroll">Scroll</a>
@@ -1751,6 +1754,117 @@ document.querySelectorAll('.reveal').forEach(el =&gt; observer.observe(el));</di
                         <button class="btn btn--secondary btn--small">More info</button>
                         <div class="popover" style="position:relative;display:inline-block;margin-top:8px;">
                             This is a popover. Use <code>position:absolute</code> and JS to position dynamically relative to the trigger element.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════ ALERTS ═══════════════════════════════════ -->
+            <section class="ds-section" id="alerts">
+                <h2 class="ds-section__title">Alerts</h2>
+                <p class="ds-section__desc">Inline status messages. Classes: <code>.alert</code> + modifiers <code>--success</code> <code>--warning</code> <code>--danger</code> <code>--info</code>. Optional elements: <code>.alert__icon</code>, <code>.alert__text</code>, <code>.alert__title</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">All variants</h3>
+                    <div class="ds-demo" style="display:flex;flex-direction:column;gap:10px;">
+                        <div class="alert alert--success">
+                            <span class="alert__icon">✓</span>
+                            <span class="alert__text">Import completed — 1 420 records added successfully.</span>
+                        </div>
+                        <div class="alert alert--warning">
+                            <span class="alert__icon">⚠</span>
+                            <div class="alert__text">
+                                <div class="alert__title">No data for 3 days</div>
+                                Connect your device to sync recent activity.
+                            </div>
+                        </div>
+                        <div class="alert alert--danger">
+                            <span class="alert__icon">✕</span>
+                            <span class="alert__text">Connection failed — check your API key and try again.</span>
+                        </div>
+                        <div class="alert alert--info">
+                            <span class="alert__icon">i</span>
+                            <span class="alert__text">Health data is updated every 6 hours via background sync.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ══════════════════════════════════ STAT CHIP ══════════════════════════════════ -->
+            <section class="ds-section" id="stat-chip">
+                <h2 class="ds-section__title">Stat chip</h2>
+                <p class="ds-section__desc">Compact label + big-number display for inline metrics. Classes: <code>.stat-chip</code>, <code>.stat-chip__label</code>, <code>.stat-chip__value</code>, <code>.stat-chip__note</code>. Group with <code>.stat-chips</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Chip row</h3>
+                    <div class="ds-demo">
+                        <div class="stat-chips">
+                            <div class="stat-chip">
+                                <div class="stat-chip__label">Avg heart rate</div>
+                                <div class="stat-chip__value">68</div>
+                                <div class="stat-chip__note">bpm · last 7 days</div>
+                            </div>
+                            <div class="stat-chip">
+                                <div class="stat-chip__label">Sleep score</div>
+                                <div class="stat-chip__value">82</div>
+                                <div class="stat-chip__note">pts · yesterday</div>
+                            </div>
+                            <div class="stat-chip">
+                                <div class="stat-chip__label">Active minutes</div>
+                                <div class="stat-chip__value">47</div>
+                                <div class="stat-chip__note">min · today</div>
+                            </div>
+                            <div class="stat-chip">
+                                <div class="stat-chip__label">Readiness</div>
+                                <div class="stat-chip__value">91</div>
+                                <div class="stat-chip__note">pts · today</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════ KPI BAR ═══════════════════════════════════ -->
+            <section class="ds-section" id="kpi-bar">
+                <h2 class="ds-section__title">KPI bar</h2>
+                <p class="ds-section__desc">Horizontal row of key metrics with vertical dividers. Classes: <code>.kpi-bar</code>, <code>.kpi-item</code>, <code>.kpi-item__label</code>, <code>.kpi-item__value</code>, <code>.kpi-item__note</code>. Trend dot: <code>.kpi-indicator</code> + <code>--up</code> <code>--down</code> <code>--stable</code>.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Dashboard overview</h3>
+                    <div class="ds-demo">
+                        <div class="kpi-bar">
+                            <div class="kpi-item">
+                                <div class="kpi-item__label">
+                                    <span class="kpi-indicator kpi-indicator--up"></span>
+                                    Total sources
+                                </div>
+                                <div class="kpi-item__value">24</div>
+                                <div class="kpi-item__note">3 inactive</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-item__label">
+                                    <span class="kpi-indicator kpi-indicator--up"></span>
+                                    Articles today
+                                </div>
+                                <div class="kpi-item__value">138</div>
+                                <div class="kpi-item__note">+12 vs yesterday</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-item__label">
+                                    <span class="kpi-indicator kpi-indicator--down"></span>
+                                    Avg summary time
+                                </div>
+                                <div class="kpi-item__value">4.2s</div>
+                                <div class="kpi-item__note">was 3.8s</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-item__label">
+                                    <span class="kpi-indicator kpi-indicator--stable"></span>
+                                    Uptime
+                                </div>
+                                <div class="kpi-item__value">99.8%</div>
+                                <div class="kpi-item__note">last 30 days</div>
+                            </div>
                         </div>
                     </div>
                 </div>

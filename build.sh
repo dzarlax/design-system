@@ -23,6 +23,9 @@ cat \
   components/hero.css \
   components/timeline.css \
   components/empty-state.css \
+  components/alert.css \
+  components/stat-chip.css \
+  components/kpi-bar.css \
   > dist/dzarlax.css
 
 echo "Built dist/dzarlax.css ($(wc -l < dist/dzarlax.css) lines)"

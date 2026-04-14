@@ -1,0 +1,75 @@
+/* dzarlax.dev Design System — KPI Bar */
+
+/* Horizontal row of key metrics separated by vertical dividers.
+   Common in dashboards and admin overview pages. */
+
+.kpi-bar {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+}
+
+.kpi-item {
+    flex: 1;
+    min-width: 150px;
+    padding: 0 24px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.kpi-item:first-child { padding-left: 0; }
+.kpi-item:last-child  { border-right: none; padding-right: 0; }
+
+.kpi-item__label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.kpi-item__value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.kpi-item__note {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+}
+
+/* Trend indicator dot */
+
+.kpi-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.kpi-indicator--up     { background: var(--good); }
+.kpi-indicator--down   { background: var(--danger); }
+.kpi-indicator--stable { background: var(--text-tertiary); }
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .kpi-bar { flex-direction: column; gap: 16px; padding: 16px 0; }
+    .kpi-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        padding: 0 0 16px;
+    }
+    .kpi-item:first-child { padding-left: 0; }
+    .kpi-item:last-child  { border-bottom: none; padding-bottom: 0; }
+}

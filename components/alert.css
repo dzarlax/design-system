@@ -1,0 +1,58 @@
+/* dzarlax.dev Design System — Alert / Callout */
+
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    border: 1px solid transparent;
+}
+
+.alert__icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    line-height: 1.5;
+}
+
+.alert__text {
+    flex: 1;
+}
+
+.alert__title {
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+/* Variants */
+
+.alert--success {
+    background: var(--good-bg);
+    color: #166534;
+    border-color: var(--good);
+}
+
+.alert--warning {
+    background: var(--warn-bg);
+    color: #92400e;
+    border-color: #fcd34d;
+}
+
+.alert--danger {
+    background: var(--danger-bg);
+    color: #991b1b;
+    border-color: #fca5a5;
+}
+
+.alert--info {
+    background: #eff6ff;
+    color: #1e40af;
+    border-color: #93c5fd;
+}
+
+[dark-mode] .alert--success { color: var(--good); }
+[dark-mode] .alert--warning { color: var(--warn); }
+[dark-mode] .alert--danger  { color: var(--danger); }
+[dark-mode] .alert--info    { color: #60a5fa; }
