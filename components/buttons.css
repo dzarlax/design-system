@@ -71,6 +71,42 @@
     opacity: 0.9;
 }
 
+.btn--warning {
+    background: var(--warn);
+    color: #fff;
+}
+
+.btn--warning:hover {
+    opacity: 0.9;
+}
+
+/* Loading state */
+
+.btn--loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn--loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: ds-btn-spin 0.7s linear infinite;
+    color: #fff;
+}
+
+@keyframes ds-btn-spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 /* Sizes */
 
 .btn--small {
