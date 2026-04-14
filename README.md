@@ -1,6 +1,12 @@
 # dzarlax.dev Design System
 
-Unified visual language for all personal projects. CSS-first, minimal vanilla JS, zero npm dependencies, works with any stack.
+Unified visual language for all personal projects — consistent tokens, components, and dark mode across every site without duplicating CSS.
+
+CSS-first, minimal vanilla JS, zero npm dependencies, works with any stack.
+
+**Live preview:** [dzarlax.github.io/design-system](https://dzarlax.github.io/design-system/)
+
+---
 
 ## Quick start
 
@@ -158,11 +164,9 @@ git tag v2.0.0
 git push origin v2.0.0
 ```
 
-## Preview
+## Local preview
 
-Live: [dzarlax.github.io/design-system](https://dzarlax.github.io/design-system/)
-
-Or open `docs/preview.html` locally.
+Open `docs/preview.html` in a browser — no server needed.
 
 ## Used in
 
