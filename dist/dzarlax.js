@@ -155,6 +155,24 @@
       if (item) select(item);
     }
 
+    // Update items in-place without re-initializing (avoids duplicate listeners/buttons)
+    function updateItems(newItems) {
+      list.innerHTML = '';
+      items = [];
+      newItems.forEach(function (item) {
+        item.classList.add('ds-combobox__item');
+        list.appendChild(item);
+        items.push(item);
+      });
+      // Reset state
+      selectedValue = '';
+      input.value = '';
+      if (hiddenInput) hiddenInput.value = '';
+      el.dataset.value = '';
+      el.classList.remove('ds-combobox--has-value', 'ds-combobox--open');
+      activeIndex = -1;
+    }
+
     /* ── events ── */
 
     input.addEventListener('focus', function () { open(); });
@@ -198,7 +216,7 @@
     });
 
     // Expose programmatic API on the element
-    el._dsComboboxAPI = { setValue: setValue, clear: clear };
+    el._dsComboboxAPI = { setValue: setValue, clear: clear, updateItems: updateItems };
   }
 
   function init() {
@@ -214,6 +232,7 @@
   window.DS = window.DS || {};
   window.DS.Combobox  = initCombobox;
   window.DS.init      = function () { init(); };
-  window.DS.setValue  = function (el, value) { if (el && el._dsComboboxAPI) el._dsComboboxAPI.setValue(value); };
+  window.DS.setValue   = function (el, value) { if (el && el._dsComboboxAPI) el._dsComboboxAPI.setValue(value); };
   window.DS.clearValue = function (el) { if (el && el._dsComboboxAPI) el._dsComboboxAPI.clear(); };
+  window.DS.updateItems = function (el, newItems) { if (el && el._dsComboboxAPI) el._dsComboboxAPI.updateItems(newItems); };
 }());

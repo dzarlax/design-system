@@ -1044,6 +1044,7 @@ pre {
 /* ── Items ── */
 
 .ds-combobox__item {
+    list-style: none;
     padding: 9px 14px;
     font-size: var(--text-base);
     cursor: pointer;
