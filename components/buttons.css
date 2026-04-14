@@ -128,7 +128,7 @@
 .btn--icon {
     width: 36px;
     height: 36px;
-    padding: 2px 0 0; /* optical correction: font descender space shifts glyph above center */
+    padding: 1px 0 0; /* optical correction: font descender space shifts glyph above center */
     border-radius: 50%;
 }
 
