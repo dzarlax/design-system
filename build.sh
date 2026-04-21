@@ -28,6 +28,7 @@ cat \
   components/alert.css \
   components/stat-chip.css \
   components/kpi-bar.css \
+  components/divider.css \
   > dist/dzarlax.css
 
 echo "Built dist/dzarlax.css ($(wc -l < dist/dzarlax.css) lines)"

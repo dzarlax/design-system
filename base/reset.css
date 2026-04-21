@@ -38,3 +38,17 @@ a {
 table {
     border-collapse: collapse;
 }
+
+/* The browser's UA rule `[hidden] { display: none }` is not `!important` and
+   loses to any component rule that sets `display` — e.g. `.btn { display:
+   inline-flex }`. Toggling the `hidden` HTML attribute on a styled element
+   would then have no visible effect. Forcing `!important` here restores the
+   expected semantics. */
+[hidden] { display: none !important; }
+
+/* Inputs must render at ≥16px to stop iOS Safari from auto-zooming the page
+   on focus. `max(16px, 1rem)` keeps the 16px floor while still scaling up
+   if the user has bumped the browser's base font size for accessibility. */
+input, select, textarea {
+    font-size: max(16px, 1rem);
+}

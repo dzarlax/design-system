@@ -363,6 +363,7 @@
                 <a href="#alerts">Alerts</a>
                 <a href="#stat-chip">Stat chip</a>
                 <a href="#kpi-bar">KPI bar</a>
+                <a href="#divider">Divider</a>
 
                 <div class="ds-toc__group">Utilities</div>
                 <a href="#utilities-scroll">Scroll</a>
@@ -1942,6 +1943,32 @@ document.querySelectorAll('.reveal').forEach(el =&gt; observer.observe(el));</di
                                 <div class="kpi-item__note">last 30 days</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- DIVIDER                                  -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="divider">
+                <h2 class="ds-section__title">Divider</h2>
+                <p class="ds-section__desc">Horizontal separator with a plain variant (<code>.divider</code>) and a labeled variant (<code>.divider--labeled</code> + <code>.divider__label</code>) that splits a line with a centered pill. Good for session breaks in chat logs or phase markers in timelines.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Plain</h3>
+                    <div class="ds-demo">
+                        <p>Content above the rule.</p>
+                        <hr class="divider">
+                        <p>Content below.</p>
+                    </div>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Labeled (session break)</h3>
+                    <div class="ds-demo">
+                        <p>Last message of session 1.</p>
+                        <div class="divider--labeled"><span class="divider__label">2026-04-21 09:34 · Cleared</span></div>
+                        <p>First message of session 2.</p>
                     </div>
                 </div>
             </section>

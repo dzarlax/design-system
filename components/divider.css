@@ -1,0 +1,39 @@
+/* dzarlax.dev Design System — Divider */
+
+/* Plain horizontal rule with consistent spacing and color. Use over <hr>
+   when you want to control margins via the existing token scale. */
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+}
+
+/* Labeled divider — a horizontal line split by a centered pill. Useful for
+   separating sessions in a chat log, or phases in a timeline. The label
+   content is free-form text inside `.divider__label`. */
+
+.divider--labeled {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+    opacity: 0.8;
+}
+
+.divider--labeled::before,
+.divider--labeled::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.divider__label {
+    font-size: var(--text-xs);
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
