@@ -6,6 +6,7 @@
     --bg: #1A1D21;
     --surface: #22252A;
     --surface-2: #2A2D32;
+    --surface-3: #33363B;
 
     /* Text */
     --text: #F5F5F5;
@@ -15,6 +16,7 @@
     /* Accent (inverted) */
     --accent: #F5F5F5;
     --accent-hover: #E0E0E0;
+    --accent-foreground: #1A1A1E;
 
     /* Borders */
     --border: rgba(255, 255, 255, 0.08);
@@ -27,10 +29,19 @@
     --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 
-    /* Status backgrounds (muted for dark) */
+    /* Status — foregrounds brightened, bgs muted */
+    --good: #22c55e;
     --good-bg: rgba(22, 163, 74, 0.15);
+    --warn: #f59e0b;
     --warn-bg: rgba(217, 119, 6, 0.15);
+    --danger: #ef4444;
     --danger-bg: rgba(220, 38, 38, 0.15);
+
+    /* Category (brightened for dark) */
+    --heart: #fb7185;
+    --activity: #34d399;
+    --sleep: #a78bfa;
+    --cardio: #38bdf8;
 }
 
 /* System preference fallback (respects OS dark mode when no explicit choice) */
@@ -39,6 +50,7 @@
         --bg: #1A1D21;
         --surface: #22252A;
         --surface-2: #2A2D32;
+        --surface-3: #33363B;
 
         --text: #F5F5F5;
         --text-secondary: rgba(245, 245, 245, 0.7);
@@ -46,6 +58,7 @@
 
         --accent: #F5F5F5;
         --accent-hover: #E0E0E0;
+        --accent-foreground: #1A1A1E;
 
         --border: rgba(255, 255, 255, 0.08);
         --border-hover: rgba(255, 255, 255, 0.12);
@@ -56,8 +69,16 @@
         --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
         --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 
+        --good: #22c55e;
         --good-bg: rgba(22, 163, 74, 0.15);
+        --warn: #f59e0b;
         --warn-bg: rgba(217, 119, 6, 0.15);
+        --danger: #ef4444;
         --danger-bg: rgba(220, 38, 38, 0.15);
+
+        --heart: #fb7185;
+        --activity: #34d399;
+        --sleep: #a78bfa;
+        --cardio: #38bdf8;
     }
 }

@@ -307,6 +307,29 @@
             }
         }
     </style>
+
+    <!-- Theme init must run before first paint to avoid a flash when the
+         saved preference disagrees with the system preference. -->
+    <script>
+        (function () {
+            var html = document.documentElement;
+            var stored = localStorage.getItem('theme');
+            // One-time migration from old boolean key.
+            if (stored === null) {
+                var legacy = localStorage.getItem('dark-mode');
+                if (legacy === 'true')  { stored = 'dark';  localStorage.setItem('theme', stored); }
+                if (legacy === 'false') { stored = 'light'; localStorage.setItem('theme', stored); }
+                if (legacy !== null)    { localStorage.removeItem('dark-mode'); }
+            }
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var mode = stored || (prefersDark ? 'dark' : 'light');
+            if (mode === 'dark') {
+                html.setAttribute('dark-mode', '');
+            } else {
+                html.setAttribute('light-mode', '');
+            }
+        })();
+    </script>
 </head>
 <body>
 
@@ -414,12 +437,20 @@
                             <div class="ds-swatch__label">--surface-2<span class="ds-swatch__hex" data-token="--surface-2"></span></div>
                         </div>
                         <div class="ds-swatch">
+                            <div class="ds-swatch__color" style="background: var(--surface-3);"></div>
+                            <div class="ds-swatch__label">--surface-3<span class="ds-swatch__hex" data-token="--surface-3"></span></div>
+                        </div>
+                        <div class="ds-swatch">
                             <div class="ds-swatch__color" style="background: var(--accent);"></div>
                             <div class="ds-swatch__label">--accent<span class="ds-swatch__hex" data-token="--accent"></span></div>
                         </div>
                         <div class="ds-swatch">
                             <div class="ds-swatch__color" style="background: var(--accent-hover);"></div>
                             <div class="ds-swatch__label">--accent-hover<span class="ds-swatch__hex" data-token="--accent-hover"></span></div>
+                        </div>
+                        <div class="ds-swatch">
+                            <div class="ds-swatch__color" style="background: var(--accent-foreground); border: 1px solid var(--border);"></div>
+                            <div class="ds-swatch__label">--accent-foreground<span class="ds-swatch__hex" data-token="--accent-foreground"></span></div>
                         </div>
                     </div>
                 </div>
@@ -1394,11 +1425,22 @@ var designSystemCSS string</div>
 
                 <div class="ds-sub">
                     <h3 class="ds-sub__title">Dark mode</h3>
-                    <div class="ds-code">&lt;!-- Add attribute to html element --&gt;
+                    <div class="ds-code">&lt;!-- Static: add attribute to html element --&gt;
 &lt;html dark-mode&gt;
 
-&lt;!-- Or toggle with JS --&gt;
-document.documentElement.toggleAttribute('dark-mode');</div>
+// Toggle with JS — always set an explicit attribute so a
+// system-dark browser can't override the manual choice via
+// the prefers-color-scheme media query.
+var html = document.documentElement;
+var next = html.hasAttribute('dark-mode') ? 'light' : 'dark';
+if (next === 'dark') {
+    html.setAttribute('dark-mode', '');
+    html.removeAttribute('light-mode');
+} else {
+    html.removeAttribute('dark-mode');
+    html.setAttribute('light-mode', '');
+}
+localStorage.setItem('theme', next);</div>
                 </div>
 
                 <div class="ds-sub">
@@ -1986,17 +2028,22 @@ document.querySelectorAll('.reveal').forEach(el =&gt; observer.observe(el));</di
 
     <script>
         // ── Theme toggle ──
+        // Initial application happens in the <head> inline script (to avoid
+        // first-paint flash). Here we only wire the click handler.
         (function () {
             var html = document.documentElement;
             var toggle = document.getElementById('themeToggle');
 
-            if (localStorage.getItem('dark-mode') === 'true') {
-                html.setAttribute('dark-mode', '');
-            }
-
             toggle.addEventListener('click', function () {
-                html.toggleAttribute('dark-mode');
-                localStorage.setItem('dark-mode', html.hasAttribute('dark-mode'));
+                var next = html.hasAttribute('dark-mode') ? 'light' : 'dark';
+                if (next === 'dark') {
+                    html.setAttribute('dark-mode', '');
+                    html.removeAttribute('light-mode');
+                } else {
+                    html.removeAttribute('dark-mode');
+                    html.setAttribute('light-mode', '');
+                }
+                localStorage.setItem('theme', next);
                 updateSwatches();
             });
         })();

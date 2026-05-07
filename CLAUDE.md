@@ -6,6 +6,8 @@ Unified design system for dzarlax.dev. CSS-first, minimal JS, zero npm dependenc
 
 ```
 tokens/          CSS custom properties (colors, typography, spacing/shadows)
+tokens/tokens.json   Canonical light+dark values — source of truth, mirrored to CSS + iOS
+tokens/ios/      Swift extensions for iOS apps (DesignSystemColors.swift)
 base/            Reset, base typography, layout
 components/      Buttons, cards, forms, tables, badges, nav, toggle, footer, spinner, combobox
 themes/          Dark mode ([dark-mode] attribute)
@@ -138,17 +140,21 @@ RUN curl -fsSL https://github.com/dzarlax/design-system/releases/download/v1.0.0
 |---|---|---|
 | `--bg` | `#FCFAF7` (warm ivory) | `#1A1D21` |
 | `--surface` | `#FFFFFF` | `#22252A` |
-| `--surface-2` | `#E8E6E3` | — |
+| `--surface-2` | `#E8E6E3` | `#2A2D32` |
+| `--surface-3` | `#DCDAD7` | `#33363B` (elevated/modal) |
 | `--accent` | `#18181B` (graphite) | `#F5F5F5` |
+| `--accent-foreground` | `#FFFFFF` | `#1A1A1E` (use on `--accent`) |
 | `--text` | `#1A1A1E` | `#F5F5F5` |
-| `--text-secondary` | rgba(26,26,30,0.7) | — |
-| `--text-tertiary` | rgba(26,26,30,0.5) | — |
-| `--border` | rgba(0,0,0,0.08) | — |
-| `--radius-lg` | 12px | — |
-| `--radius` | 8px | — |
-| `--radius-sm` | 4px | — |
-| `--shadow-sm` / `--shadow` / `--shadow-lg` | subtle → prominent | — |
-| `--good` / `--warn` / `--danger` | status colors | — |
+| `--text-secondary` | rgba(26,26,30,0.7) | rgba(245,245,245,0.7) |
+| `--text-tertiary` | rgba(26,26,30,0.5) | rgba(245,245,245,0.5) |
+| `--border` | rgba(0,0,0,0.08) | rgba(255,255,255,0.08) |
+| `--good` | `#16a34a` | `#22c55e` (brightened) |
+| `--warn` | `#d97706` | `#f59e0b` (brightened) |
+| `--danger` | `#dc2626` | `#ef4444` (brightened) |
+| `--good-bg` / `--warn-bg` / `--danger-bg` | pastel | translucent rgba 15% |
+| `--heart` / `--activity` / `--sleep` / `--cardio` | saturated | brightened (`fb7185`/`34d399`/`a78bfa`/`38bdf8`) |
+| `--radius-lg` / `--radius` / `--radius-sm` | 12px / 8px / 4px | — |
+| `--shadow-sm` / `--shadow` / `--shadow-lg` | subtle → prominent | deeper alphas |
 | `--container-lg` | 1200px | — |
 | `--transition` | 0.18s ease | — |
 
@@ -162,12 +168,23 @@ RUN curl -fsSL https://github.com/dzarlax/design-system/releases/download/v1.0.0
 
 Primary: HTML attribute `[dark-mode]`. Fallback: `prefers-color-scheme: dark`.
 
-```js
-document.documentElement.toggleAttribute('dark-mode');   // toggle
-document.documentElement.setAttribute('light-mode', ''); // force light
-```
-
 Priority: `[dark-mode]` / `[light-mode]` attribute > system preference > light default.
+
+**A manual toggle MUST always set one of `[dark-mode]` or `[light-mode]` explicitly** — naively toggling only `[dark-mode]` breaks on system-dark browsers, because removing the attribute lets the `@media (prefers-color-scheme: dark)` rule (which is gated on `:root:not([light-mode])`) take over and force dark again. Symptom: the toggle button appears dead.
+
+```js
+// Correct: explicit two-attribute toggle
+var html = document.documentElement;
+var next = html.hasAttribute('dark-mode') ? 'light' : 'dark';
+if (next === 'dark') {
+    html.setAttribute('dark-mode', '');
+    html.removeAttribute('light-mode');
+} else {
+    html.removeAttribute('dark-mode');
+    html.setAttribute('light-mode', '');
+}
+localStorage.setItem('theme', next);
+```
 
 ## Component classes reference
 
@@ -181,12 +198,27 @@ Priority: `[dark-mode]` / `[light-mode]` attribute > system preference > light d
 | Tables | standard `<table>` inside `.table-wrap` |
 | Cards | `.card`, `.card__header`, `.card__body` |
 
+## iOS / SwiftUI projects
+
+For iOS apps, copy `tokens/ios/DesignSystemColors.swift` into the Xcode target.
+It exposes the same tokens as `Color.dsBackground`, `Color.dsSurface`,
+`Color.dsAccent`, etc., backed by `UITraitCollection`-aware
+`UIColor(dynamicProvider:)`. They switch automatically with iOS dark mode — no
+`@Environment(\.colorScheme)` plumbing needed at call sites.
+
+When updating values: edit `tokens/tokens.json` first, then mirror to
+`tokens/colors.css`, `themes/dark.css`, and `tokens/ios/DesignSystemColors.swift`.
+There is no generator yet — the file count is small enough that hand-sync is
+fine, but keep `tokens.json` as the canonical reference. If the surface area
+grows, write a build step that emits CSS + Swift from the JSON.
+
 ## Projects using this system
 
 - Book (book.dzarlax.dev) — source of truth, tokens extracted from here
 - Health Dashboard (health.dzarlax.dev)
 - Evening News (news.dzarlax.dev)
 - Authentik (custom.css)
+- health-sync iOS app (uses `tokens/ios/DesignSystemColors.swift`)
 
 ## Rules
 
