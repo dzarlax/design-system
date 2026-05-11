@@ -16,6 +16,133 @@
     z-index: 100;
 }
 
+/* ── Floating pill nav ─────────────────────────────────────────────
+   Centered glassy pill at the top of the viewport. Use for marketing /
+   editorial pages where the navbar should feel decorative, not utility.
+   Goes on the same <nav> element as .navbar — `.navbar.navbar--pill`. */
+
+.navbar--pill {
+    position: fixed;
+    top: 16px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: calc(100% - 40px);
+    height: auto;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all var(--transition);
+}
+
+.navbar--pill:hover {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[dark-mode] .navbar--pill {
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+[dark-mode] .navbar--pill:hover {
+    background: rgba(22, 27, 34, 0.85);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .navbar--pill {
+        background: rgba(22, 27, 34, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    :root:not([light-mode]) .navbar--pill:hover {
+        background: rgba(22, 27, 34, 0.85);
+    }
+}
+
+.navbar--pill ul {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar--pill ul li a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
+    display: block;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .navbar--pill ul li a:hover {
+        color: var(--text);
+        background: var(--bg);
+    }
+}
+
+.navbar--pill ul li a.active {
+    color: var(--text);
+    background: var(--bg);
+}
+
+[dark-mode] .navbar--pill ul li a.active {
+    background: rgba(255, 255, 255, 0.1);
+}
+@media (hover: hover) {
+    [dark-mode] .navbar--pill ul li a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Floating controls pill — companion to .navbar--pill, sits on the right
+   side of the viewport. Use for theme toggle / lang switcher. */
+
+.navbar-controls {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all var(--transition);
+}
+
+[dark-mode] .navbar-controls {
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .navbar-controls {
+        background: rgba(22, 27, 34, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
 .navbar__brand {
     display: flex;
     align-items: center;
