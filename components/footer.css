@@ -11,6 +11,129 @@
     text-align: center;
 }
 
+/* ── Editorial footer ──────────────────────────────────────────────
+   Dark background, two-column grid (main + social), bottom row with
+   tagline. For lander / blog pages. Apply as `class="footer footer--editorial"`
+   on the <footer> element. */
+
+.footer--editorial {
+    background: #1A1A1E;
+    color: rgba(255, 255, 255, 0.8);
+    padding: clamp(24px, 8vh, 72px) 0 32px;
+    margin-top: clamp(40px, 10vh, 120px);
+    text-align: left;
+    border-top: none;
+    position: relative;
+    overflow: hidden;
+    font-size: var(--text-sm);
+}
+
+[dark-mode] .footer--editorial {
+    background: #0F1012;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .footer--editorial {
+        background: #0F1012;
+    }
+}
+
+.footer--editorial h4,
+.footer--editorial .footer__heading {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 16px;
+    font-weight: 600;
+}
+
+.footer__content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.footer__main p {
+    margin: 0;
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.8);
+}
+.footer__main p:first-child {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+    margin-bottom: 8px;
+}
+
+.footer__social {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Row of icon-only social links inside .footer__social. */
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all var(--transition);
+    font-size: 1rem;
+}
+
+.social-icons a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+}
+
+/* Footer bottom row — tagline + tech credit etc. */
+
+.footer__bottom {
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 24px 24px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+}
+.footer__bottom p { margin: 0; }
+.footer__bottom a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
+.footer__bottom a:hover { color: rgba(255, 255, 255, 1); }
+
+@media (max-width: 640px) {
+    .footer__content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+    }
+    .footer__social {
+        align-items: center;
+    }
+}
+
 /* Brand footer link */
 
 .dzarlax-footer {

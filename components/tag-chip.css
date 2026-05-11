@@ -1,0 +1,86 @@
+/* dzarlax.dev Design System — Tag chip */
+
+/* Standalone tag pill — typically used at the bottom of an article, or in a
+   tag-cloud listing. For tag chips inside a card, see .card__tag. */
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--surface);
+    color: var(--text);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition);
+    box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.tag-chip:hover {
+    background: var(--accent);
+    color: var(--accent-foreground);
+    box-shadow: inset 0 0 0 1px transparent, var(--shadow);
+    transform: translateY(-1px);
+}
+
+[dark-mode] .tag-chip {
+    background: var(--surface);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .tag-chip {
+        background: var(--surface);
+    }
+}
+
+/* Count badge inside a chip — used in tag-cloud. */
+
+.tag-chip__count {
+    font-size: 0.75em;
+    opacity: 0.55;
+    font-weight: 400;
+    background: rgba(0, 0, 0, 0.06);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    min-width: 18px;
+    text-align: center;
+}
+
+.tag-chip:hover .tag-chip__count {
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0.9;
+}
+
+[dark-mode] .tag-chip__count {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .tag-chip__count {
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* ── Tag cloud ─────────────────────────────────────────────────────── */
+
+/* Wraps a list of tag chips; sizes pills proportionally to --tag-weight
+   (0..1) set inline by the template — used to make popular tags stand out. */
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0;
+    list-style: none;
+    margin: 0 auto;
+    max-width: 900px;
+    justify-content: center;
+}
+
+.tag-chip--cloud {
+    /* 1.0rem (low) → 1.6rem (high). --tag-weight set inline (0..1). */
+    font-size: calc(1rem + var(--tag-weight, 0) * 0.6rem);
+    padding: 10px 20px;
+}

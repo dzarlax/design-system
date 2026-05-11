@@ -717,6 +717,71 @@ pre {
     box-shadow: var(--shadow-lg);
 }
 
+/* ── Editorial card (portfolio / blog post preview) ─────────────────
+   Subtle inset border + pronounced hover lift. Pairs well with a serif
+   .card__title and a small caps .card__eyebrow above it. */
+
+.card--editorial {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+        var(--shadow);
+    border: none;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.card--editorial:hover {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+        var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+[dark-mode] .card--editorial {
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+        var(--shadow);
+}
+[dark-mode] .card--editorial:hover {
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+        var(--shadow-lg);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .card--editorial {
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+            var(--shadow);
+    }
+    :root:not([light-mode]) .card--editorial:hover {
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+            var(--shadow-lg);
+    }
+}
+
+/* Clickable card variant — when the whole card is wrapped in <a>. */
+
+a.card,
+.card--link {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+a.card:hover,
+.card--link:hover { color: inherit; }
+
+/* Eyebrow — small caps label above the card title (category, topic). */
+
+.card__eyebrow {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--text-tertiary);
+    margin: 0 0 8px;
+}
+
 .card__title {
     font-size: var(--text-lg);
     font-weight: 600;
@@ -1222,6 +1287,133 @@ tr:hover {
     z-index: 100;
 }
 
+/* ── Floating pill nav ─────────────────────────────────────────────
+   Centered glassy pill at the top of the viewport. Use for marketing /
+   editorial pages where the navbar should feel decorative, not utility.
+   Goes on the same <nav> element as .navbar — `.navbar.navbar--pill`. */
+
+.navbar--pill {
+    position: fixed;
+    top: 16px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: calc(100% - 40px);
+    height: auto;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all var(--transition);
+}
+
+.navbar--pill:hover {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[dark-mode] .navbar--pill {
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+[dark-mode] .navbar--pill:hover {
+    background: rgba(22, 27, 34, 0.85);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .navbar--pill {
+        background: rgba(22, 27, 34, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    :root:not([light-mode]) .navbar--pill:hover {
+        background: rgba(22, 27, 34, 0.85);
+    }
+}
+
+.navbar--pill ul {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar--pill ul li a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
+    display: block;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .navbar--pill ul li a:hover {
+        color: var(--text);
+        background: var(--bg);
+    }
+}
+
+.navbar--pill ul li a.active {
+    color: var(--text);
+    background: var(--bg);
+}
+
+[dark-mode] .navbar--pill ul li a.active {
+    background: rgba(255, 255, 255, 0.1);
+}
+@media (hover: hover) {
+    [dark-mode] .navbar--pill ul li a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Floating controls pill — companion to .navbar--pill, sits on the right
+   side of the viewport. Use for theme toggle / lang switcher. */
+
+.navbar-controls {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all var(--transition);
+}
+
+[dark-mode] .navbar-controls {
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .navbar-controls {
+        background: rgba(22, 27, 34, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
 .navbar__brand {
     display: flex;
     align-items: center;
@@ -1468,6 +1660,129 @@ tr:hover {
     text-align: center;
 }
 
+/* ── Editorial footer ──────────────────────────────────────────────
+   Dark background, two-column grid (main + social), bottom row with
+   tagline. For lander / blog pages. Apply as `class="footer footer--editorial"`
+   on the <footer> element. */
+
+.footer--editorial {
+    background: #1A1A1E;
+    color: rgba(255, 255, 255, 0.8);
+    padding: clamp(24px, 8vh, 72px) 0 32px;
+    margin-top: clamp(40px, 10vh, 120px);
+    text-align: left;
+    border-top: none;
+    position: relative;
+    overflow: hidden;
+    font-size: var(--text-sm);
+}
+
+[dark-mode] .footer--editorial {
+    background: #0F1012;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .footer--editorial {
+        background: #0F1012;
+    }
+}
+
+.footer--editorial h4,
+.footer--editorial .footer__heading {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 16px;
+    font-weight: 600;
+}
+
+.footer__content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.footer__main p {
+    margin: 0;
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.8);
+}
+.footer__main p:first-child {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+    margin-bottom: 8px;
+}
+
+.footer__social {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Row of icon-only social links inside .footer__social. */
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all var(--transition);
+    font-size: 1rem;
+}
+
+.social-icons a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+}
+
+/* Footer bottom row — tagline + tech credit etc. */
+
+.footer__bottom {
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 24px 24px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+}
+.footer__bottom p { margin: 0; }
+.footer__bottom a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
+.footer__bottom a:hover { color: rgba(255, 255, 255, 1); }
+
+@media (max-width: 640px) {
+    .footer__content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+    }
+    .footer__social {
+        align-items: center;
+    }
+}
+
 /* Brand footer link */
 
 .dzarlax-footer {
@@ -1559,6 +1874,54 @@ tr:hover {
     position: relative;
     overflow: hidden;
     background: var(--bg);
+}
+
+/* ── Editorial hero (no min-height, large serif title with clamp) ────
+   For article headers and content-first lander intros where the hero
+   should shrink to its content instead of filling the viewport. */
+
+.hero--editorial {
+    min-height: 0;
+    padding: clamp(40px, 10vh, 120px) 24px;
+}
+
+.hero--editorial .hero__title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.hero--editorial .hero__subtitle,
+.hero--editorial .hero__lede {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    line-height: var(--leading-normal);
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 auto 32px;
+}
+
+.hero--editorial .hero__meta {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.hero--editorial .hero__eyebrow {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--text-secondary);
+    margin: 0 0 16px;
+}
+
+.hero--editorial .hero__eyebrow a {
+    color: inherit;
+    text-decoration: none;
+}
+.hero--editorial .hero__eyebrow a:hover {
+    color: var(--accent);
 }
 
 /* Profile avatar with badge */
@@ -2137,4 +2500,248 @@ tr:hover {
     background: var(--surface-2);
     color: var(--text-secondary);
     white-space: nowrap;
+}
+/* dzarlax.dev Design System — Tag chip */
+
+/* Standalone tag pill — typically used at the bottom of an article, or in a
+   tag-cloud listing. For tag chips inside a card, see .card__tag. */
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--surface);
+    color: var(--text);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition);
+    box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.tag-chip:hover {
+    background: var(--accent);
+    color: var(--accent-foreground);
+    box-shadow: inset 0 0 0 1px transparent, var(--shadow);
+    transform: translateY(-1px);
+}
+
+[dark-mode] .tag-chip {
+    background: var(--surface);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .tag-chip {
+        background: var(--surface);
+    }
+}
+
+/* Count badge inside a chip — used in tag-cloud. */
+
+.tag-chip__count {
+    font-size: 0.75em;
+    opacity: 0.55;
+    font-weight: 400;
+    background: rgba(0, 0, 0, 0.06);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    min-width: 18px;
+    text-align: center;
+}
+
+.tag-chip:hover .tag-chip__count {
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0.9;
+}
+
+[dark-mode] .tag-chip__count {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .tag-chip__count {
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* ── Tag cloud ─────────────────────────────────────────────────────── */
+
+/* Wraps a list of tag chips; sizes pills proportionally to --tag-weight
+   (0..1) set inline by the template — used to make popular tags stand out. */
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0;
+    list-style: none;
+    margin: 0 auto;
+    max-width: 900px;
+    justify-content: center;
+}
+
+.tag-chip--cloud {
+    /* 1.0rem (low) → 1.6rem (high). --tag-weight set inline (0..1). */
+    font-size: calc(1rem + var(--tag-weight, 0) * 0.6rem);
+    padding: 10px 20px;
+}
+/* dzarlax.dev Design System — Prose */
+
+/* Typography for long-form content (articles, posts). Apply .prose to a
+   wrapper around the body markup; descendants get reading-comfortable
+   defaults without polluting global element styles. */
+
+.prose {
+    font-size: clamp(1.05rem, 1.6vw, 1.15rem);
+    line-height: var(--leading-relaxed);
+    max-width: 68ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prose > * + * {
+    margin-top: 24px;
+}
+
+/* Headings inside prose — left-aligned, larger top spacing for rhythm. */
+
+.prose h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    margin-top: 48px;
+    margin-bottom: 16px;
+    letter-spacing: var(--tracking-tight);
+}
+
+.prose h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    margin-top: 40px;
+    margin-bottom: 12px;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+    max-width: none;
+}
+
+.prose ul,
+.prose ol {
+    padding-left: 24px;
+}
+
+.prose li + li {
+    margin-top: 8px;
+}
+
+.prose blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin-left: 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.prose code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 0.15em 0.4em;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+}
+
+.prose pre {
+    overflow-x: auto;
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    font-size: 0.95em;
+    line-height: var(--leading-normal);
+    font-family: var(--font-mono);
+}
+
+.prose pre code {
+    background: none;
+    padding: 0;
+}
+
+.prose a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
+
+.prose a:hover {
+    color: var(--accent);
+}
+
+.prose strong,
+.prose b {
+    font-weight: 700;
+}
+
+.prose hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+}
+
+.prose img,
+.prose figure {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+.prose figcaption {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* Table of contents card — companion to prose. */
+
+.prose-toc {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 40px;
+    box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.prose-toc__title {
+    font-weight: 700;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    margin: 0 0 12px;
+    color: var(--text-secondary);
+}
+
+.prose-toc ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.prose-toc li + li {
+    margin-top: 8px;
+}
+
+.prose-toc a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: var(--border-hover);
+}
+
+.prose-toc a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
 }
