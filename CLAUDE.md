@@ -39,6 +39,10 @@ No npm, no package.json — pure shell script. What `build.sh` does:
 
 **CDN caching warning:** jsdelivr `@main` can serve stale content for hours after a push. For production, always bake assets into the build rather than loading from CDN at runtime.
 
+**CDN poisoning incidents (May 2026):** jsdelivr cached a 404 for `v1.2.0` and `v1.2.1` when its first GitHub fetch raced the tag push — both Cloudflare and Fastly edges pinned the failure response, and `purge.jsdelivr.net` reported success but subsequent fetches kept missing. statically.io 301-redirects the `/<tag>/` URL form to `http://...@<tag>/...` (HTTPS downgrade, their bug) which trips any strict CSP `style-src https://...`. Lesson: **consuming projects must bake the bundle** into their deploy artifact (`curl -fsSL https://github.com/dzarlax/design-system/releases/download/<tag>/dzarlax.{css,js}` → same-origin `/assets/ds/...?v=<tag>` with sed rewriting `<link>`/`<script>` URLs at build time). See `.github/workflows/deploy.yml` in `dzarlax/website` for the canonical pattern. Sources can keep CDN URLs for local previews; CI rewrites only the deploy output.
+
+**Versioning automation:** `release.yml` parses commit messages since the last tag — `feat:` → MINOR, `feat!:` / `BREAKING CHANGE:` → MAJOR, anything else → PATCH. `Release-As: major|minor|patch` footer in any commit body overrides. `workflow_dispatch` is available for manual re-tag (used when an external CDN poisons-caches a tag and we need to bump past it without a content commit). Force-pushing an amended commit that touches one of the `paths:` triggers re-fires the workflow → can produce back-to-back tags (e.g. `v1.2.2` + `v1.2.3` from one logical change); harmless but noisy in the release list.
+
 ## JS Components
 
 ### Combobox (`js/combobox.js`)

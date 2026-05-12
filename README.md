@@ -17,7 +17,7 @@ CSS-first, minimal vanilla JS, zero npm dependencies, works with any stack.
 <script src="https://cdn.jsdelivr.net/gh/dzarlax/design-system@main/dist/dzarlax.js" defer></script>
 ```
 
-> **Note:** jsdelivr `@main` can cache stale content for hours. For production, bake assets into your build.
+> **Note:** jsdelivr `@main` can cache stale content for hours, and jsdelivr has been observed to pin a 404 at its edge when its first fetch races a fresh tag push (purge does not recover it). For production, **bake assets into your build** — see `Auto-update in CI` below, or `dzarlax/website`'s deploy.yml for the canonical sed-rewrite pattern.
 
 ### Docker (production — works offline)
 
@@ -60,13 +60,28 @@ See `CLAUDE.md` for the full Go embedding pattern.
 |---|---|
 | **Buttons** | `.btn`, `.btn--primary`, `.btn--secondary`, `.btn--ghost`, `.btn--danger`, `.btn--small`, `.btn--icon` |
 | **Badges** | `.badge`, `.badge--success`, `.badge--warning`, `.badge--danger`, `.badge--neutral` |
-| **Navigation** | `.tab-nav` (tabs), `.navbar` (top bar) |
+| **Navigation** | `.tab-nav` (tabs), `.navbar` (top bar), `.navbar.navbar--pill` (editorial pill — collapses into a slide-out drawer at `≤ 768px` when given `.active`) |
+| **Theme toggle** | `.theme-toggle` — 44×24 switch track with a sliding thumb on `[dark-mode]` |
+| **Lang switcher** | `.lang-switcher`, `.lang-btn`, `.lang-btn.active` |
 | **Forms** | `.form-input`, `.form-select`, `.form-label`, `.form-group` |
 | **Cards** | `.card`, `.card__header`, `.card__body` |
 | **Tables** | `<table>` inside `.table-wrap` |
 | **Alerts** | `.alert`, `.alert--success`, `.alert--warning`, `.alert--danger` |
 
 ### JS components (`dzarlax.js`)
+
+#### Nav drawer — wires a hamburger to a slide-out `.navbar--pill`
+
+```html
+<button class="hamburger" data-ds-nav-toggle="#mainNav" aria-controls="mainNav" aria-expanded="false">
+  <span class="hamburger__line"></span>
+  <span class="hamburger__line"></span>
+  <span class="hamburger__line"></span>
+</button>
+<nav id="mainNav" class="navbar navbar--pill">...</nav>
+```
+
+Auto-initializes on page load. Toggles `.active` on the button + the target. Closes on Escape, outside-click, or click on any `[data-ds-nav-overlay]`. Re-init with `DS.NavDrawer.init()` after dynamic DOM changes.
 
 #### Combobox — searchable select with keyboard nav
 
@@ -94,12 +109,16 @@ el.addEventListener('ds:change', e => console.log(e.detail.value))
 ## Structure
 
 ```
-tokens/          CSS custom properties (colors, typography, spacing/shadows)
+tokens/          CSS custom properties (colors, typography, spacing, shadows)
+tokens/tokens.json   Canonical source — `colors.css`, `shadows.css`, `themes/dark.css`,
+                     and `tokens/ios/DesignSystemColors.swift` are generated from it
+                     by `bin/gen-tokens.py` (runs first in build.sh).
 base/            Reset, base typography, layout, utilities
 components/      All CSS components
-themes/          Dark mode ([dark-mode] attribute)
+themes/          Dark mode ([dark-mode] attribute, generated)
 brand/           Logo SVGs + PNGs (icon, wordmark, wordmark-dev)
-js/              Vanilla JS components (combobox, ...)
+js/              Vanilla JS components (combobox, nav-drawer, ...)
+bin/             Build-step scripts (currently: gen-tokens.py)
 dist/            Bundled dzarlax.css + dzarlax.js (generated — do not edit)
 docs/            Preview page (open docs/preview.html locally)
 ```
@@ -155,14 +174,13 @@ On every push to `main`, GitHub Actions rebuilds and deploys to GitHub Pages.
 
 ## Releases
 
-Every push to `main` that changes CSS, JS, or brand files creates a new patch release automatically.
+Every push to `main` that changes source files (`tokens/**`, `components/**`, `themes/**`, `base/**`, `brand/**`, `js/**`, `bin/**`, `build.sh`) creates a release automatically. The bump level is parsed from the commit messages since the last tag:
 
-To bump minor/major manually:
+- `feat:` → **MINOR**
+- `feat!:` (any type with `!:`) or a `BREAKING CHANGE:` line in the body → **MAJOR**
+- everything else (`fix:`, `chore:`, `docs:`, …) → **PATCH**
 
-```bash
-git tag v2.0.0
-git push origin v2.0.0
-```
+Override via a `Release-As: major|minor|patch` footer in any commit body in the range. `workflow_dispatch` is wired for manual re-tagging without a content commit (rare; used when an external CDN poisons-caches a tag).
 
 ## Local preview
 
@@ -170,7 +188,9 @@ Open `docs/preview.html` in a browser — no server needed.
 
 ## Used in
 
+- [dzarlax.dev](https://dzarlax.dev) — personal lander + Hugo blog (bakes the bundle into the deploy tree at build time)
 - [Book](https://book.dzarlax.dev) — self-hosted booking
 - [Health Dashboard](https://health.dzarlax.dev) — health metrics
 - [Evening News](https://news.dzarlax.dev) — AI news aggregator
 - Authentik — SSO login
+- `health-sync` iOS app — consumes `tokens/ios/DesignSystemColors.swift`
