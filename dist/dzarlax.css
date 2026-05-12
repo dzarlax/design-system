@@ -1,4 +1,5 @@
 /* dzarlax.dev Design System — Color Tokens */
+/* Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit. */
 
 :root {
     /* Brand core */
@@ -66,7 +67,8 @@
     --tracking-wide: 0.5px;
     --tracking-caps: 1px;
 }
-/* dzarlax.dev Design System — Spacing, Radius & Shadow Tokens */
+/* dzarlax.dev Design System — Spacing & Radius Tokens */
+/* Note: shadow tokens live in tokens/shadows.css (generated from tokens.json). */
 
 :root {
     /* Border radius */
@@ -75,12 +77,6 @@
     --radius: 8px;
     --radius-lg: 12px;
     --radius-full: 9999px;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
 
     /* Transition */
     --transition: 0.18s ease;
@@ -94,7 +90,18 @@
     --container-lg: 1200px;
     --container-xl: 1400px;
 }
+/* dzarlax.dev Design System — Shadow Tokens (light) */
+/* Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit. */
+/* Dark-mode overrides live in themes/dark.css. */
+
+:root {
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+}
 /* dzarlax.dev Design System — Dark Theme */
+/* Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit. */
 
 /* Explicit dark mode (via HTML attribute) */
 [dark-mode] {
@@ -143,28 +150,34 @@
 /* System preference fallback (respects OS dark mode when no explicit choice) */
 @media (prefers-color-scheme: dark) {
     :root:not([light-mode]) {
+        /* Backgrounds */
         --bg: #1A1D21;
         --surface: #22252A;
         --surface-2: #2A2D32;
         --surface-3: #33363B;
 
+        /* Text */
         --text: #F5F5F5;
         --text-secondary: rgba(245, 245, 245, 0.7);
         --text-tertiary: rgba(245, 245, 245, 0.5);
 
+        /* Accent (inverted) */
         --accent: #F5F5F5;
         --accent-hover: #E0E0E0;
         --accent-foreground: #1A1A1E;
 
+        /* Borders */
         --border: rgba(255, 255, 255, 0.08);
         --border-hover: rgba(255, 255, 255, 0.12);
         --border-light: rgba(255, 255, 255, 0.05);
 
+        /* Shadows (deeper for dark) */
         --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
         --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
         --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 
+        /* Status — foregrounds brightened, bgs muted */
         --good: #22c55e;
         --good-bg: rgba(22, 163, 74, 0.15);
         --warn: #f59e0b;
@@ -172,6 +185,7 @@
         --danger: #ef4444;
         --danger-bg: rgba(220, 38, 38, 0.15);
 
+        /* Category (brightened for dark) */
         --heart: #fb7185;
         --activity: #34d399;
         --sleep: #a78bfa;
@@ -1380,6 +1394,65 @@ tr:hover {
     }
 }
 
+/* ── Mobile: turn the pill nav into a slide-out drawer ──────────────
+   On narrow viewports the floating pill collapses into a 280px-wide
+   side drawer triggered by `.active`. Pair with the `.hamburger` button
+   (defined below) — wire its click to toggle `.active` on the navbar. */
+
+@media (max-width: 768px) {
+    .navbar--pill {
+        position: fixed;
+        inset-block-start: 0;
+        inset-inline-start: -100%;
+        inset-inline-end: auto;
+        margin: 0;
+        inline-size: 280px;
+        max-inline-size: 80vw;
+        block-size: 100vh;
+        border-radius: 0;
+        padding-block: 80px 24px;
+        padding-inline: 16px;
+        background: var(--surface);
+        border: none;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        transition: inset-inline-start 0.3s ease;
+        visibility: hidden;
+        z-index: 999;
+    }
+
+    .navbar--pill.active {
+        inset-inline-start: 0;
+        visibility: visible;
+    }
+
+    .navbar--pill ul {
+        flex-direction: column;
+        gap: 0;
+        inline-size: 100%;
+    }
+
+    .navbar--pill ul li {
+        inline-size: 100%;
+    }
+
+    .navbar--pill ul li a {
+        display: block;
+        padding: 12px 16px;
+        inline-size: 100%;
+        border-radius: var(--radius);
+        font-size: 1rem;
+    }
+
+    /* Controls pill: tighter so it doesn't crowd the hamburger button. */
+    .navbar-controls {
+        inset-block-start: 10px;
+        inset-inline-end: 10px;
+        padding: 6px 10px;
+    }
+}
+
 /* Floating controls pill — companion to .navbar--pill, sits on the right
    side of the viewport. Use for theme toggle / lang switcher. */
 
@@ -1586,6 +1659,129 @@ tr:hover {
     .navbar__nav {
         display: none;
     }
+}
+/* dzarlax.dev Design System — Theme toggle (switch track)
+ *
+ * 44×24 pill switch with a 18px circular thumb that slides on [dark-mode].
+ * Use for site-level light/dark theme toggles in headers / nav controls.
+ *
+ *   <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+ *
+ * The toggle has no internal text — the visual is purely the track + thumb.
+ * Pair with a JS handler that flips [dark-mode]/[light-mode] on the root
+ * (see CLAUDE.md "Dark mode" section for the canonical two-attribute toggle).
+ */
+
+.theme-toggle {
+    position: relative;
+    inline-size: 44px;
+    block-size: 24px;
+    background: var(--border-hover);
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: background var(--transition), transform var(--transition);
+    flex-shrink: 0;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 4px;
+    inset-inline-start: 4px;
+    inline-size: 18px;
+    block-size: 18px;
+    background: var(--surface);
+    border-radius: 50%;
+    transition: inset-inline-start var(--transition), background var(--transition);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[dark-mode] .theme-toggle::after {
+    inset-inline-start: calc(100% - 22px);
+    background: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .theme-toggle::after {
+        inset-inline-start: calc(100% - 22px);
+        background: var(--text);
+    }
+}
+
+@media (hover: hover) {
+    .theme-toggle:hover {
+        transform: scale(1.05);
+    }
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+/* dzarlax.dev Design System — Language switcher
+ *
+ * Inline row of pill buttons for switching between language variants.
+ *
+ *   <div class="lang-switcher">
+ *     <a href="/en/" class="lang-btn active">EN</a>
+ *     <a href="/ru/" class="lang-btn">RU</a>
+ *   </div>
+ *
+ * `.lang-btn` works on <a>, <button>, and <input type="button">. The pill is
+ * 42×30, rounded to a full radius, with a tinted background on hover / .active.
+ */
+
+.lang-switcher {
+    display: flex;
+    gap: 4px;
+}
+
+.lang-btn {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: var(--text-lg);
+    line-height: 1;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    transition: background var(--transition), color var(--transition);
+    display: block;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .lang-btn:hover {
+        background: var(--border);
+        color: var(--text);
+    }
+}
+
+.lang-btn.active {
+    background: var(--border);
+    color: var(--text);
+}
+
+[dark-mode] .lang-btn:hover,
+[dark-mode] .lang-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .lang-btn:hover,
+    :root:not([light-mode]) .lang-btn.active {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+    }
+}
+
+.lang-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 /* dzarlax.dev Design System — Toggle Switch */
 

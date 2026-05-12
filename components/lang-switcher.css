@@ -1,0 +1,63 @@
+/* dzarlax.dev Design System — Language switcher
+ *
+ * Inline row of pill buttons for switching between language variants.
+ *
+ *   <div class="lang-switcher">
+ *     <a href="/en/" class="lang-btn active">EN</a>
+ *     <a href="/ru/" class="lang-btn">RU</a>
+ *   </div>
+ *
+ * `.lang-btn` works on <a>, <button>, and <input type="button">. The pill is
+ * 42×30, rounded to a full radius, with a tinted background on hover / .active.
+ */
+
+.lang-switcher {
+    display: flex;
+    gap: 4px;
+}
+
+.lang-btn {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: var(--text-lg);
+    line-height: 1;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    transition: background var(--transition), color var(--transition);
+    display: block;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .lang-btn:hover {
+        background: var(--border);
+        color: var(--text);
+    }
+}
+
+.lang-btn.active {
+    background: var(--border);
+    color: var(--text);
+}
+
+[dark-mode] .lang-btn:hover,
+[dark-mode] .lang-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .lang-btn:hover,
+    :root:not([light-mode]) .lang-btn.active {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+    }
+}
+
+.lang-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}

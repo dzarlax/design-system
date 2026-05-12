@@ -1,0 +1,60 @@
+/* dzarlax.dev Design System — Theme toggle (switch track)
+ *
+ * 44×24 pill switch with a 18px circular thumb that slides on [dark-mode].
+ * Use for site-level light/dark theme toggles in headers / nav controls.
+ *
+ *   <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+ *
+ * The toggle has no internal text — the visual is purely the track + thumb.
+ * Pair with a JS handler that flips [dark-mode]/[light-mode] on the root
+ * (see CLAUDE.md "Dark mode" section for the canonical two-attribute toggle).
+ */
+
+.theme-toggle {
+    position: relative;
+    inline-size: 44px;
+    block-size: 24px;
+    background: var(--border-hover);
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: background var(--transition), transform var(--transition);
+    flex-shrink: 0;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 4px;
+    inset-inline-start: 4px;
+    inline-size: 18px;
+    block-size: 18px;
+    background: var(--surface);
+    border-radius: 50%;
+    transition: inset-inline-start var(--transition), background var(--transition);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[dark-mode] .theme-toggle::after {
+    inset-inline-start: calc(100% - 22px);
+    background: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([light-mode]) .theme-toggle::after {
+        inset-inline-start: calc(100% - 22px);
+        background: var(--text);
+    }
+}
+
+@media (hover: hover) {
+    .theme-toggle:hover {
+        transform: scale(1.05);
+    }
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}

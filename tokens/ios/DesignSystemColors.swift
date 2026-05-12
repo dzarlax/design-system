@@ -1,14 +1,10 @@
 // dzarlax design system — iOS color tokens
 //
-// Canonical source: tokens/tokens.json. CSS mirror: tokens/colors.css + themes/dark.css.
+// Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit.
+// CSS mirrors live in tokens/colors.css + themes/dark.css.
+//
 // Drop this file into your Xcode target as-is. All `ds*` colors are dynamic
 // (UITraitCollection-aware) — they switch automatically with iOS dark mode.
-//
-// Adapter for projects that ship their own DesignSystem.swift: copy the
-// `dsDynamic` helper + the `Color` extension below into your file and use as
-// the source of truth for color values. When updating, regenerate this file
-// from tokens.json — do not hand-edit individual hex values here without
-// updating the JSON first.
 
 import SwiftUI
 import UIKit
@@ -47,9 +43,9 @@ private func dsDynamic(lightHex: String, darkHex: String) -> Color {
 extension Color {
     // Backgrounds
     static let dsBackground = dsDynamic(lightHex: "#FCFAF7", darkHex: "#1A1D21")
-    static let dsSurface    = dsDynamic(lightHex: "#FFFFFF", darkHex: "#22252A")
-    static let dsSurface2   = dsDynamic(lightHex: "#E8E6E3", darkHex: "#2A2D32")
-    static let dsSurface3   = dsDynamic(lightHex: "#DCDAD7", darkHex: "#33363B")
+    static let dsSurface = dsDynamic(lightHex: "#FFFFFF", darkHex: "#22252A")
+    static let dsSurface2 = dsDynamic(lightHex: "#E8E6E3", darkHex: "#2A2D32")
+    static let dsSurface3 = dsDynamic(lightHex: "#DCDAD7", darkHex: "#33363B")
 
     // Text
     static let dsText = dsDynamic(lightHex: "#1A1A1E", darkHex: "#F5F5F5")
@@ -95,8 +91,8 @@ extension Color {
     )
 
     // Health categories
-    static let dsHeart    = dsDynamic(lightHex: "#e11d48", darkHex: "#fb7185")
+    static let dsHeart = dsDynamic(lightHex: "#e11d48", darkHex: "#fb7185")
     static let dsActivity = dsDynamic(lightHex: "#059669", darkHex: "#34d399")
-    static let dsSleep    = dsDynamic(lightHex: "#7c3aed", darkHex: "#a78bfa")
-    static let dsCardio   = dsDynamic(lightHex: "#0284c7", darkHex: "#38bdf8")
+    static let dsSleep = dsDynamic(lightHex: "#7c3aed", darkHex: "#a78bfa")
+    static let dsCardio = dsDynamic(lightHex: "#0284c7", darkHex: "#38bdf8")
 }
