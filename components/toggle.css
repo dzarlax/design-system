@@ -38,23 +38,7 @@
     transform: translateX(18px);
 }
 
-/* Theme toggle (circle button) */
-
-.theme-toggle {
-    background: var(--surface-2);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: var(--text);
-    transition: background var(--transition);
-}
-
-.theme-toggle:hover {
-    background: var(--border);
-}
+/* `.theme-toggle` moved to components/theme-toggle.css in v1.2.0 (44×24
+   switch track with a sliding thumb on [dark-mode]). The old 36×36 circle-
+   button variant that used to live here was overriding the new component
+   because of concat order — fixed by removal in v1.2.2. */
