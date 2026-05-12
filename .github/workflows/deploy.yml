@@ -22,6 +22,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Verify token mirrors are in sync with tokens.json
+        run: python3 bin/gen-tokens.py --check
+
       - name: Build CSS bundle
         run: sh build.sh
 

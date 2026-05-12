@@ -23,8 +23,12 @@ docs/            Preview page with all components
 ./build.sh        # Rebuilds dist/dzarlax.css + dist/dzarlax.min.css + dist/dzarlax.js
 ```
 
-Concatenation order matters: tokens → themes → base → components. Only change in `build.sh`.  
-JS: all `js/*.js` files are concatenated into `dist/dzarlax.js`.
+No npm, no package.json — pure shell script. What `build.sh` does:
+
+1. **Tokens regen** (if `tokens/tokens.json` is newer than its mirrors): runs `bin/gen-tokens.py` to emit `tokens/colors.css`, `themes/dark.css`, and `tokens/ios/DesignSystemColors.swift` from `tokens/tokens.json` (the canonical source).
+2. **CSS concat** (order matters): `tokens/*.css` → `themes/*.css` → `base/*.css` → `components/*.css` → `dist/dzarlax.css`
+3. **CSS minify** (inline Python): strips comments, collapses whitespace → `dist/dzarlax.min.css`
+4. **JS concat**: all `js/*.js` → `dist/dzarlax.js`
 
 ## Deploy
 
@@ -192,7 +196,9 @@ localStorage.setItem('theme', next);
 |---|---|
 | Buttons | `.btn`, `.btn--primary`, `.btn--secondary`, `.btn--ghost`, `.btn--danger`, `.btn--small`, `.btn--icon` |
 | Badges | `.badge`, `.badge--success`, `.badge--warning`, `.badge--danger`, `.badge--neutral` |
-| Navigation | `.tab-nav`, `.tab-nav a` (also works with `button`) |
+| Navigation | `.tab-nav`, `.tab-nav a` (also works with `button`); pill nav `.navbar.navbar--pill` (collapses to slide-out drawer ≤ 768px when given `.active`) |
+| Theme toggle | `.theme-toggle` — 44×24 switch track with sliding thumb on `[dark-mode]` |
+| Lang switcher | `.lang-switcher`, `.lang-btn`, `.lang-btn.active` |
 | Forms | `.form-input`, `.form-select`, `.form-label`, `.form-group` |
 | Combobox | `[data-ds-combobox]` (JS auto-init), `DS.*` API |
 | Tables | standard `<table>` inside `.table-wrap` |
@@ -206,11 +212,12 @@ It exposes the same tokens as `Color.dsBackground`, `Color.dsSurface`,
 `UIColor(dynamicProvider:)`. They switch automatically with iOS dark mode — no
 `@Environment(\.colorScheme)` plumbing needed at call sites.
 
-When updating values: edit `tokens/tokens.json` first, then mirror to
-`tokens/colors.css`, `themes/dark.css`, and `tokens/ios/DesignSystemColors.swift`.
-There is no generator yet — the file count is small enough that hand-sync is
-fine, but keep `tokens.json` as the canonical reference. If the surface area
-grows, write a build step that emits CSS + Swift from the JSON.
+When updating values: edit `tokens/tokens.json` (the canonical source), then
+run `python3 bin/gen-tokens.py` (or `./build.sh`, which calls it first). The
+generator emits `tokens/colors.css`, `themes/dark.css`, and
+`tokens/ios/DesignSystemColors.swift` — those three files are **generated**
+and should not be hand-edited. `bin/gen-tokens.py --check` exits non-zero if
+the mirrors drift from the JSON; useful in CI.
 
 ## Projects using this system
 

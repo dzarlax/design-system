@@ -10,6 +10,7 @@ on:
       - "themes/**"
       - "brand/**"
       - "js/**"
+      - "bin/**"
       - "build.sh"
 
 permissions:
@@ -23,23 +24,53 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Verify token mirrors are in sync with tokens.json
+        run: python3 bin/gen-tokens.py --check
+
       - name: Build CSS bundle
         run: sh build.sh
 
       - name: Determine next version
         id: version
+        # Conventional-commits bump:
+        #   • commits matching `^feat(scope)?:`          → MINOR
+        #   • commits matching `^<type>(scope)?!:`       → MAJOR (`!` = breaking)
+        #   • commits containing `BREAKING CHANGE:` line → MAJOR
+        #   • anything else                              → PATCH
+        # Override knob: put `Release-As: major|minor|patch` in any commit body.
         run: |
+          set -e
           LATEST=$(git tag -l 'v*' --sort=-v:refname | head -1)
           if [ -z "$LATEST" ]; then
             NEXT="v1.0.0"
+            BUMP="initial"
           else
-            MAJOR=$(echo "$LATEST" | cut -d. -f1)
-            MINOR=$(echo "$LATEST" | cut -d. -f2)
-            PATCH=$(echo "$LATEST" | cut -d. -f3)
-            NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))"
+            RANGE="${LATEST}..HEAD"
+            LOG=$(git log --format='%B%n---%n' "$RANGE")
+            BUMP=patch
+            OVERRIDE=$(printf '%s\n' "$LOG" | grep -iE '^Release-As:' | tail -1 | awk -F': *' '{print tolower($2)}')
+            if [ "$OVERRIDE" = "major" ] || [ "$OVERRIDE" = "minor" ] || [ "$OVERRIDE" = "patch" ]; then
+              BUMP="$OVERRIDE"
+            elif printf '%s\n' "$LOG" | grep -qE '^BREAKING[ -]CHANGE:'; then
+              BUMP=major
+            elif printf '%s\n' "$LOG" | grep -qE '^(feat|fix|refactor|perf|chore|build|ci|docs|style|test|revert)(\([^)]+\))?!:'; then
+              BUMP=major
+            elif printf '%s\n' "$LOG" | grep -qE '^feat(\([^)]+\))?:'; then
+              BUMP=minor
+            fi
+            VER="${LATEST#v}"
+            MAJOR=$(echo "$VER" | cut -d. -f1)
+            MINOR=$(echo "$VER" | cut -d. -f2)
+            PATCH=$(echo "$VER" | cut -d. -f3)
+            case "$BUMP" in
+              major) NEXT="v$((MAJOR+1)).0.0";;
+              minor) NEXT="v${MAJOR}.$((MINOR+1)).0";;
+              patch) NEXT="v${MAJOR}.${MINOR}.$((PATCH+1))";;
+            esac
           fi
-          echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
-          echo "Next version: $NEXT"
+          echo "tag=$NEXT"   >> "$GITHUB_OUTPUT"
+          echo "bump=$BUMP"  >> "$GITHUB_OUTPUT"
+          echo "Next version: $NEXT (bump=$BUMP, since=${LATEST:-none})"
 
       - name: Add version banner to CSS and JS
         run: |

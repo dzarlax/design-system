@@ -1,12 +1,19 @@
 #!/bin/sh
-# Rebuild dist/dzarlax.css and dist/dzarlax.js from source files
+# Rebuild dist/dzarlax.css and dist/dzarlax.js from source files.
+# Step 1 regenerates the CSS + Swift token mirrors from tokens/tokens.json so
+# the concatenated bundle always reflects the canonical source.
+set -e
 cd "$(dirname "$0")"
+
+# ── Tokens (canonical → mirrors) ──
+python3 bin/gen-tokens.py
 
 # ── CSS ──
 cat \
   tokens/colors.css \
   tokens/typography.css \
   tokens/spacing.css \
+  tokens/shadows.css \
   themes/dark.css \
   base/reset.css \
   base/typography.css \
@@ -19,6 +26,8 @@ cat \
   components/tables.css \
   components/badges.css \
   components/nav.css \
+  components/theme-toggle.css \
+  components/lang-switcher.css \
   components/toggle.css \
   components/footer.css \
   components/spinner.css \

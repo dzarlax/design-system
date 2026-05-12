@@ -1,0 +1,10 @@
+/* dzarlax.dev Design System — Shadow Tokens (light) */
+/* Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit. */
+/* Dark-mode overrides live in themes/dark.css. */
+
+:root {
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+}
