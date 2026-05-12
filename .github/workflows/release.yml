@@ -12,6 +12,11 @@ on:
       - "js/**"
       - "bin/**"
       - "build.sh"
+  # Manual trigger for re-releasing when an external CDN poisoned-cached an
+  # earlier tag (jsdelivr occasionally caches a 404 if its first GitHub fetch
+  # races the tag push). Bumps PATCH unless an open commit overrides via
+  # `Release-As:` footer.
+  workflow_dispatch: {}
 
 permissions:
   contents: write
