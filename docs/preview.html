@@ -384,6 +384,7 @@
                 <a href="#timeline">Timeline</a>
                 <a href="#editorial">Editorial variants</a>
                 <a href="#tag-chip">Tag chip</a>
+                <a href="#share">Share</a>
                 <a href="#prose">Prose</a>
                 <a href="#empty-state">Empty state</a>
                 <a href="#alerts">Alerts</a>
@@ -1753,6 +1754,53 @@ localStorage.setItem('theme', next);</div>
                         <li><a class="tag-chip tag-chip--cloud" href="#" style="--tag-weight: 0.3;"><span>Build Logs</span><span class="tag-chip__count">3</span></a></li>
                         <li><a class="tag-chip tag-chip--cloud" href="#" style="--tag-weight: 0.1;"><span>Notes</span><span class="tag-chip__count">1</span></a></li>
                     </ul>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════ -->
+            <!-- SHARE                                    -->
+            <!-- ════════════════════════════════════════ -->
+            <section class="ds-section" id="share">
+                <h2 class="ds-section__title">Share buttons</h2>
+                <p class="ds-section__desc">Inline row of round icon buttons for sharing the current page to Telegram, X, LinkedIn, WhatsApp, Reddit, or email — plus a copy-link action. URL/title are resolved at click time from <code>location.href</code> + <code>document.title</code>; override via <code>data-share-url</code> / <code>data-share-title</code> / <code>data-share-text</code> on the container or button. Auto-initialised on <code>[data-ds-share]</code>; re-init with <code>DS.Share.init()</code>. Copy uses <code>navigator.clipboard</code> with an <code>execCommand</code> fallback so it works on non-secure origins.</p>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">Default row (uses page URL + title)</h3>
+                    <nav class="share" data-ds-share aria-label="Share this article">
+                        <span class="share__label">Share:</span>
+                        <ul class="share__list">
+                            <li><button type="button" class="share__btn" data-share="telegram" aria-label="Share on Telegram" title="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="x"        aria-label="Share on X"        title="X (Twitter)"><i class="fa-brands fa-twitter" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="linkedin" aria-label="Share on LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="whatsapp" aria-label="Share on WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="reddit"   aria-label="Share on Reddit"   title="Reddit"><i class="fa-brands fa-reddit-alien" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="email"    aria-label="Share via email"   title="Email"><i class="fa-regular fa-envelope" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="copy"     aria-label="Copy link"         title="Copy link">
+                                <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                                <span class="share__copied" aria-live="polite" hidden>Copied!</span>
+                            </button></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="ds-sub">
+                    <h3 class="ds-sub__title">With explicit overrides</h3>
+                    <p class="ds-sub__desc">Container-level <code>data-share-url</code> + <code>data-share-title</code> + <code>data-share-text</code> let you share something other than the current page (e.g. a featured post or external link).</p>
+                    <nav class="share" data-ds-share
+                         data-share-url="https://dzarlax.dev/articles/"
+                         data-share-title="dzarlax.dev — Articles"
+                         data-share-text="A blog about product, AI, and systems."
+                         aria-label="Share blog">
+                        <span class="share__label">Blog:</span>
+                        <ul class="share__list">
+                            <li><button type="button" class="share__btn" data-share="telegram" aria-label="Share on Telegram" title="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="x"        aria-label="Share on X"        title="X"       ><i class="fa-brands fa-twitter" aria-hidden="true"></i></button></li>
+                            <li><button type="button" class="share__btn" data-share="copy"     aria-label="Copy link"         title="Copy link">
+                                <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                                <span class="share__copied" aria-live="polite" hidden>Copied!</span>
+                            </button></li>
+                        </ul>
+                    </nav>
                 </div>
             </section>
 

@@ -338,11 +338,15 @@ def main() -> int:
     for rel, fn in OUTPUTS:
         path = ROOT / rel
         new = fn()
-        old = path.read_text() if path.exists() else ""
+        # Force UTF-8 on read AND write — on Windows the default text mode is
+        # cp1252, which turns em-dashes into `?` and rewrites every file with
+        # mojibake on each run. The mirrors carry comments with `—`, so this
+        # is not optional.
+        old = path.read_text(encoding="utf-8") if path.exists() else ""
         if new != old:
             changed.append(rel)
             if not check:
-                path.write_text(new)
+                path.write_text(new, encoding="utf-8", newline="\n")
     if check:
         if changed:
             print("Token mirrors out of sync with tokens.json:", file=sys.stderr)
