@@ -1,0 +1,124 @@
+/* dzarlax.dev Design System — Share buttons
+ *
+ * Inline row of round icon buttons for sharing the current page to common
+ * targets (Telegram, X, LinkedIn, WhatsApp, Reddit, email) plus a copy-link
+ * action. Icons come from your project's icon library — DS does not bundle
+ * them. Font Awesome 6, Lucide, inline SVG all work.
+ *
+ * Usage:
+ *   <nav class="share" data-ds-share aria-label="Share this article">
+ *     <span class="share__label">Share:</span>
+ *     <ul class="share__list">
+ *       <li><button class="share__btn" data-share="telegram" title="Telegram"><i class="fa-brands fa-telegram"></i></button></li>
+ *       <li><button class="share__btn" data-share="x"        title="X"       ><i class="fa-brands fa-twitter"></i></button></li>
+ *       <li><button class="share__btn" data-share="linkedin" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></button></li>
+ *       <li><button class="share__btn" data-share="whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button></li>
+ *       <li><button class="share__btn" data-share="reddit"   title="Reddit"  ><i class="fa-brands fa-reddit-alien"></i></button></li>
+ *       <li><button class="share__btn" data-share="email"    title="Email"   ><i class="fa-regular fa-envelope"></i></button></li>
+ *       <li><button class="share__btn" data-share="copy"     title="Copy link">
+ *             <i class="fa-regular fa-copy"></i>
+ *             <span class="share__copied" aria-live="polite" hidden>Copied!</span>
+ *       </button></li>
+ *     </ul>
+ *   </nav>
+ *
+ * Overrides on the container (optional):
+ *   data-share-url   — share this URL instead of location.href
+ *   data-share-title — share this title instead of document.title
+ *   data-share-text  — extra text body (used by WhatsApp + email)
+ *
+ * JS lives in dist/dzarlax.js — see js/share.js.
+ */
+
+.share {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 32px 0 24px;
+    padding: 20px 0;
+    border-block-start: 1px solid var(--border);
+    border-block-end: 1px solid var(--border);
+}
+
+.share__label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.share__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.share__list > li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.share__list > li::before,
+.share__list > li::marker {
+    content: none;
+}
+
+.share__btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 40px;
+    block-size: 40px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform var(--transition), background-color var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.share__btn:hover,
+.share__btn:focus-visible {
+    background: var(--accent);
+    color: var(--accent-foreground);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.share__btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.share__btn > i,
+.share__btn > svg {
+    inline-size: 1em;
+    block-size: 1em;
+    pointer-events: none;
+}
+
+/* "Copied!" toast — anchored above the copy button, shown via [hidden]. */
+.share__copied {
+    position: absolute;
+    inset-block-end: calc(100% + 8px);
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--text);
+    color: var(--bg);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+    pointer-events: none;
+}

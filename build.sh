@@ -39,6 +39,7 @@ cat \
   components/kpi-bar.css \
   components/divider.css \
   components/tag-chip.css \
+  components/share.css \
   components/prose.css \
   > dist/dzarlax.css
 
