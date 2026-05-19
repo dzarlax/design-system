@@ -52,3 +52,8 @@ table {
 input, select, textarea {
     font-size: max(16px, 1rem);
 }
+
+/* Scroll lock when mobile navigation is open */
+.ds-scroll-lock {
+    overflow: hidden !important;
+}

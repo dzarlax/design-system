@@ -23,45 +23,47 @@
  *   • Escape key → close
  *   • aria-expanded reflects state
  */
-(function () {
+(() => {
   'use strict';
 
-  function resolveTarget(toggle) {
-    var sel = toggle.getAttribute('data-ds-nav-toggle');
+  const resolveTarget = (toggle) => {
+    const sel = toggle.getAttribute('data-ds-nav-toggle');
     return sel ? document.querySelector(sel) : null;
-  }
+  };
 
-  function setOpen(toggle, target, open) {
+  const setOpen = (toggle, target, open) => {
     toggle.classList.toggle('active', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (target) target.classList.toggle('active', open);
-    document.querySelectorAll('[data-ds-nav-overlay]').forEach(function (ov) {
+    document.querySelectorAll('[data-ds-nav-overlay]').forEach(ov => {
       ov.classList.toggle('active', open);
     });
-  }
+    // Prevent background scrolling on mobile when navigation is open
+    document.documentElement.classList.toggle('ds-scroll-lock', open);
+  };
 
-  function bindToggle(toggle) {
+  const bindToggle = (toggle) => {
     if (toggle._dsNavDrawer) return;
     toggle._dsNavDrawer = true;
 
-    var target = resolveTarget(toggle);
+    const target = resolveTarget(toggle);
     if (!target) return;
 
-    toggle.addEventListener('click', function (e) {
+    toggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      var open = !target.classList.contains('active');
+      const open = !target.classList.contains('active');
       setOpen(toggle, target, open);
     });
 
     // Close on outside-click (anywhere that isn't toggle or target).
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', (e) => {
       if (!target.classList.contains('active')) return;
       if (toggle.contains(e.target) || target.contains(e.target)) return;
       setOpen(toggle, target, false);
     });
 
     // Close on Escape.
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && target.classList.contains('active')) {
         setOpen(toggle, target, false);
         toggle.focus();
@@ -69,16 +71,16 @@
     });
 
     // Overlay click closes too.
-    document.querySelectorAll('[data-ds-nav-overlay]').forEach(function (ov) {
-      ov.addEventListener('click', function () {
+    document.querySelectorAll('[data-ds-nav-overlay]').forEach(ov => {
+      ov.addEventListener('click', () => {
         setOpen(toggle, target, false);
       });
     });
-  }
+  };
 
-  function init() {
+  const init = () => {
     document.querySelectorAll('[data-ds-nav-toggle]').forEach(bindToggle);
-  }
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
@@ -87,5 +89,5 @@
   }
 
   window.DS = window.DS || {};
-  window.DS.NavDrawer = { init: init, bind: bindToggle };
-}());
+  window.DS.NavDrawer = { init, bind: bindToggle };
+})();

@@ -76,20 +76,21 @@ a.card:hover,
     text-transform: uppercase;
     letter-spacing: var(--tracking-caps);
     color: var(--text-tertiary);
-    margin: 0 0 8px;
+    margin-block: 0 8px;
+    margin-inline: 0;
 }
 
 .card__title {
     font-size: var(--text-lg);
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-block-end: 6px;
 }
 
 .card__description {
     color: var(--text-secondary);
     font-size: var(--text-base);
     line-height: var(--leading-normal);
-    margin-bottom: 12px;
+    margin-block-end: 12px;
 }
 
 .card__meta {
@@ -102,9 +103,9 @@ a.card:hover,
 }
 
 .card__footer {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
+    margin-block-start: 16px;
+    padding-block-start: 16px;
+    border-block-start: 1px solid var(--border);
 }
 
 /* Grid */
@@ -145,13 +146,14 @@ a.card:hover,
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 16px;
+    margin-block-end: 16px;
 }
 
 .card__tag {
     background: rgba(0, 0, 0, 0.06);
     color: var(--text-secondary);
-    padding: 3px 10px;
+    padding-block: 3px;
+    padding-inline: 10px;
     border-radius: var(--radius-sm);
     font-size: var(--text-xs);
     font-weight: 600;
@@ -168,8 +170,8 @@ a.card:hover,
 }
 
 .card__link {
-    margin-top: auto;
-    padding-top: 12px;
+    margin-block-start: auto;
+    padding-block-start: 12px;
     display: inline-flex;
     align-items: center;
     gap: 6px;

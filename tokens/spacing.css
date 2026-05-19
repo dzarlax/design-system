@@ -1,4 +1,5 @@
 /* dzarlax.dev Design System — Spacing & Radius Tokens */
+/* Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit. */
 /* Note: shadow tokens live in tokens/shadows.css (generated from tokens.json). */
 
 :root {
@@ -8,6 +9,13 @@
     --radius: 8px;
     --radius-lg: 12px;
     --radius-full: 9999px;
+
+    /* Spacing scale */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
 
     /* Transition */
     --transition: 0.18s ease;

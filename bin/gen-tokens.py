@@ -321,12 +321,99 @@ def emit_swift() -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Spacing & Typography CSS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def emit_spacing_css() -> str:
+    spacing = TOKENS["spacing"]
+    radius = TOKENS["radius"]
+    transition = TOKENS["transition"]
+    nav_height = TOKENS["navbar-height"]
+    container = TOKENS["container"]
+    
+    lines = [
+        "/* dzarlax.dev Design System — Spacing & Radius Tokens */",
+        "/* Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit. */",
+        "/* Note: shadow tokens live in tokens/shadows.css (generated from tokens.json). */",
+        "",
+        ":root {"
+    ]
+    
+    lines.append("    /* Border radius */")
+    for k in ["xs", "sm", "default", "lg", "full"]:
+        val = radius[k]
+        varname = "--radius" if k == "default" else f"--radius-{k}"
+        lines.append(f"    {varname}: {val};")
+        
+    lines.append("")
+    lines.append("    /* Spacing scale */")
+    for k in ["xs", "sm", "default", "lg", "xl"]:
+        val = spacing[k]
+        varname = "--spacing" if k == "default" else f"--spacing-{k}"
+        lines.append(f"    {varname}: {val};")
+        
+    lines.append("")
+    lines.append("    /* Transition */")
+    lines.append(f"    --transition: {transition};")
+    
+    lines.append("")
+    lines.append("    /* Navbar */")
+    lines.append(f"    --navbar-height: {nav_height};")
+    
+    lines.append("")
+    lines.append("    /* Container widths */")
+    for k in ["sm", "md", "lg", "xl"]:
+        val = container[k]
+        lines.append(f"    --container-{k}: {val};")
+        
+    lines.append("}")
+    return "\n".join(lines) + "\n"
+
+
+def emit_typography_css() -> str:
+    typo = TOKENS["typography"]
+    sizes = typo["size"]
+    leading = typo["leading"]
+    tracking = typo["tracking"]
+    
+    lines = [
+        "/* dzarlax.dev Design System — Typography Tokens */",
+        "/* Generated from tokens/tokens.json by bin/gen-tokens.py — do not hand-edit. */",
+        "",
+        ":root {",
+        f"    --font: {typo['font']};",
+        f"    --font-serif: {typo['font-serif']};",
+        f"    --font-mono: {typo['font-mono']};",
+        ""
+    ]
+    
+    for k in ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl"]:
+        val = sizes[k]
+        lines.append(f"    --text-{k}: {val};")
+        
+    lines.append("")
+    for k in ["tight", "normal", "relaxed"]:
+        val = leading[k]
+        lines.append(f"    --leading-{k}: {val};")
+        
+    lines.append("")
+    for k in ["tight", "normal", "wide", "caps"]:
+        val = tracking[k]
+        lines.append(f"    --tracking-{k}: {val};")
+        
+    lines.append("}")
+    return "\n".join(lines) + "\n"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Driver
 # ─────────────────────────────────────────────────────────────────────────────
 
 OUTPUTS = [
     ("tokens/colors.css",                    emit_colors_css),
     ("tokens/shadows.css",                   emit_shadows_css),
+    ("tokens/spacing.css",                   emit_spacing_css),
+    ("tokens/typography.css",                emit_typography_css),
     ("themes/dark.css",                      emit_dark_css),
     ("tokens/ios/DesignSystemColors.swift",  emit_swift),
 ]

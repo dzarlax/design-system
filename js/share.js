@@ -19,122 +19,119 @@
  * No external dependencies. Uses navigator.clipboard with an execCommand
  * fallback for older browsers / non-secure contexts.
  */
-(function () {
+(() => {
   'use strict';
 
-  var PROVIDERS = {
-    telegram: function (u, t/*, x*/) {
-      return 'https://t.me/share/url?url=' + enc(u) + '&text=' + enc(t);
-    },
-    x: function (u, t/*, x*/) {
-      return 'https://twitter.com/intent/tweet?url=' + enc(u) + '&text=' + enc(t);
-    },
-    twitter: function (u, t/*, x*/) {
-      return 'https://twitter.com/intent/tweet?url=' + enc(u) + '&text=' + enc(t);
-    },
-    linkedin: function (u/*, t, x*/) {
-      return 'https://www.linkedin.com/sharing/share-offsite/?url=' + enc(u);
-    },
-    whatsapp: function (u, t, x) {
-      return 'https://wa.me/?text=' + enc((x || t) + ' ' + u);
-    },
-    reddit: function (u, t/*, x*/) {
-      return 'https://www.reddit.com/submit?url=' + enc(u) + '&title=' + enc(t);
-    },
-    email: function (u, t, x) {
-      return 'mailto:?subject=' + enc(t) + '&body=' + enc((x ? x + '\n\n' : '') + u);
-    }
+  const PROVIDERS = {
+    telegram: (u, t) => `https://t.me/share/url?url=${enc(u)}&text=${enc(t)}`,
+    x: (u, t) => `https://twitter.com/intent/tweet?url=${enc(u)}&text=${enc(t)}`,
+    twitter: (u, t) => `https://twitter.com/intent/tweet?url=${enc(u)}&text=${enc(t)}`,
+    linkedin: (u) => `https://www.linkedin.com/sharing/share-offsite/?url=${enc(u)}`,
+    whatsapp: (u, t, x) => `https://wa.me/?text=${enc(`${x || t} ${u}`)}`,
+    reddit: (u, t) => `https://www.reddit.com/submit?url=${enc(u)}&title=${enc(t)}`,
+    email: (u, t, x) => `mailto:?subject=${enc(t)}&body=${enc((x ? `${x}\n\n` : '') + u)}`
   };
 
-  function enc(s) { return encodeURIComponent(s == null ? '' : String(s)); }
+  const enc = (s) => encodeURIComponent(s == null ? '' : String(s));
 
-  function resolve(btn, container, key) {
-    var url   = btn.getAttribute('data-share-url')   || container.getAttribute('data-share-url')   || location.href;
-    var title = btn.getAttribute('data-share-title') || container.getAttribute('data-share-title') || document.title;
-    var text  = btn.getAttribute('data-share-text')  || container.getAttribute('data-share-text')  || title;
-    return { url: url, title: title, text: text };
-  }
+  const resolve = (btn, container) => {
+    const url = btn.getAttribute('data-share-url') || container.getAttribute('data-share-url') || location.href;
+    const title = btn.getAttribute('data-share-title') || container.getAttribute('data-share-title') || document.title;
+    const text = btn.getAttribute('data-share-text') || container.getAttribute('data-share-text') || title;
+    return { url, title, text };
+  };
 
-  function showCopied(btn) {
-    var msg = btn.querySelector('.share__copied');
+  const showCopied = (btn) => {
+    const msg = btn.querySelector('.share__copied');
     if (!msg) return;
     msg.hidden = false;
     btn.classList.add('is-copied');
     clearTimeout(btn._dsShareT);
-    btn._dsShareT = setTimeout(function () {
+    btn._dsShareT = setTimeout(() => {
       msg.hidden = true;
       btn.classList.remove('is-copied');
     }, 1600);
-  }
+  };
 
-  function copyText(text, done) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
-      return;
-    }
-    fallback(text, done);
-  }
-
-  function fallback(text, done) {
-    var ta = document.createElement('textarea');
+  const fallback = (text, done) => {
+    const ta = document.createElement('textarea');
     ta.value = text;
     ta.setAttribute('readonly', '');
     ta.style.position = 'fixed';
     ta.style.opacity = '0';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); done(); } catch (e) { /* swallow */ }
+    try {
+      document.execCommand('copy');
+      done();
+    } catch (e) {
+      /* swallow */
+    }
     document.body.removeChild(ta);
-  }
+  };
 
-  function open(url) {
+  const copyText = (text, done) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, () => {
+        fallback(text, done);
+      });
+      return;
+    }
+    fallback(text, done);
+  };
+
+  const open = (url) => {
     // noopener for security; noreferrer to avoid leaking the article URL via
     // Referer to the share target (some users care).
     window.open(url, '_blank', 'noopener,noreferrer');
-  }
+  };
 
-  function handleClick(e) {
-    var btn = e.target.closest('[data-share]');
+  const handleClick = (e) => {
+    const btn = e.target.closest('[data-share]');
     if (!btn) return;
-    var container = btn.closest('[data-ds-share]');
+    const container = btn.closest('[data-ds-share]');
     if (!container) return;
-    var key = btn.getAttribute('data-share');
-    var ctx = resolve(btn, container, key);
+    const key = btn.getAttribute('data-share');
+    const ctx = resolve(btn, container);
 
     if (key === 'copy') {
       e.preventDefault();
-      copyText(ctx.url, function () { showCopied(btn); });
+      copyText(ctx.url, () => {
+        showCopied(btn);
+      });
       return;
     }
 
-    var make = PROVIDERS[key];
+    const make = PROVIDERS[key];
     if (!make) return;
     e.preventDefault();
-    var href = make(ctx.url, ctx.title, ctx.text);
+    const href = make(ctx.url, ctx.title, ctx.text);
     if (key === 'email') {
-      location.href = href;   // mailto: must not go through window.open
+      location.href = href; // mailto: must not go through window.open
     } else {
       open(href);
     }
-  }
+  };
 
-  function init(root) {
-    var scope = root || document;
-    scope.querySelectorAll('[data-ds-share]').forEach(function (el) {
+  const init = (root) => {
+    const scope = root || document;
+    scope.querySelectorAll('[data-ds-share]').forEach((el) => {
       if (el._dsShare) return;
       el._dsShare = true;
       el.addEventListener('click', handleClick);
     });
-  }
+  };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { init(); });
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+    });
   } else {
     init();
   }
 
   // Expose a tiny API namespace, merging with whatever is already there.
-  var ns = (window.DS = window.DS || {});
+  const ns = (window.DS = window.DS || {});
   ns.Share = ns.Share || {};
   ns.Share.init = init;
 })();
