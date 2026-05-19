@@ -67,6 +67,17 @@
     return read(key) || (mqDark.matches ? 'dark' : 'light');
   }
 
+  // Safari < 14 (and iOS Safari < 14) only support the deprecated
+  // MediaQueryList.addListener / removeListener — calling .addEventListener
+  // on those instances throws. Feature-detect both paths.
+  function onMqChange(mq, fn) {
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', fn);
+    } else if (typeof mq.addListener === 'function') {
+      mq.addListener(fn);
+    }
+  }
+
   function handleClick(e) {
     var key = getKey(e.currentTarget);
     var next = ROOT.hasAttribute('dark-mode') ? 'light' : 'dark';
@@ -92,7 +103,7 @@
 
     if (!init._mqWired) {
       init._mqWired = true;
-      mqDark.addEventListener('change', function (e) {
+      onMqChange(mqDark, function (e) {
         if (read(key)) return; // user has a manual override
         apply(e.matches ? 'dark' : 'light');
       });
