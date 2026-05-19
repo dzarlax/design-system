@@ -180,6 +180,33 @@ Priority: `[dark-mode]` / `[light-mode]` attribute > system preference > light d
 
 **A manual toggle MUST always set one of `[dark-mode]` or `[light-mode]` explicitly** — naively toggling only `[dark-mode]` breaks on system-dark browsers, because removing the attribute lets the `@media (prefers-color-scheme: dark)` rule (which is gated on `:root:not([light-mode])`) take over and force dark again. Symptom: the toggle button appears dead.
 
+### Recommended: opt into `data-ds-theme-toggle` (auto-wire)
+
+```html
+<button class="theme-toggle" data-ds-theme-toggle aria-label="Toggle theme"></button>
+```
+
+The bundle's `js/theme-toggle.js` auto-wires every `[data-ds-theme-toggle]` on `DOMContentLoaded`: it resolves the initial theme (`localStorage[theme]` → `prefers-color-scheme` fallback), sets the right attribute on `<html>`, attaches a click handler that flips between the two attributes correctly, and re-syncs on live system-pref changes when no manual override is stored. Override the storage key with an attribute value: `data-ds-theme-toggle="my-key"`. Programmatic flip: `DS.Theme.apply('dark' | 'light')`.
+
+For FOUC-free initial paint, also ship a tiny inline `<script>` in the page `<head>` BEFORE the DS bundle loads — the runtime handler runs after defer, which can be a paint or two too late on slow connections:
+
+```html
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      var dark = t === 'dark'
+        || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute(dark ? 'dark-mode' : 'light-mode', '');
+    } catch (_) {}
+  })();
+</script>
+```
+
+### Manual: roll your own
+
+If you can't use the auto-wire (e.g. you need bespoke transitions, framework-bound state, or a different storage key per toggle), the two-attribute pattern is:
+
 ```js
 // Correct: explicit two-attribute toggle
 var html = document.documentElement;
@@ -201,7 +228,7 @@ localStorage.setItem('theme', next);
 | Buttons | `.btn`, `.btn--primary`, `.btn--secondary`, `.btn--ghost`, `.btn--danger`, `.btn--small`, `.btn--icon` |
 | Badges | `.badge`, `.badge--success`, `.badge--warning`, `.badge--danger`, `.badge--neutral` |
 | Navigation | `.tab-nav`, `.tab-nav a` (also works with `button`); pill nav `.navbar.navbar--pill` (collapses to slide-out drawer ≤ 768px when given `.active`) |
-| Theme toggle | `.theme-toggle` — 44×24 switch track with sliding thumb on `[dark-mode]` |
+| Theme toggle | `.theme-toggle` — 44×24 switch track with sliding thumb on `[dark-mode]`. Add `data-ds-theme-toggle` to auto-wire the click handler (see "Dark mode") |
 | Lang switcher | `.lang-switcher`, `.lang-btn`, `.lang-btn.active` |
 | Forms | `.form-input`, `.form-select`, `.form-label`, `.form-group` |
 | Combobox | `[data-ds-combobox]` (JS auto-init), `DS.*` API |
